@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AppCalorias</string>
+    <string name="bt_galery">Galeria</string>
+    <string name="et_Hint">Agregar informacion</string>
+</resources>
