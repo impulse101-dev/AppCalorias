@@ -1,5 +1,8 @@
 package com.example.appcalorias.api
 
+import com.example.appcalorias.api.request.PrompRequest
+import com.example.appcalorias.api.response.get.ModelsResponse
+import com.example.appcalorias.api.response.post.PromptResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

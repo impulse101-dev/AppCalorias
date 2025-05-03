@@ -1,5 +1,8 @@
 package com.example.appcalorias.api
 
+import com.example.appcalorias.api.request.PrompRequest
+import com.example.appcalorias.api.response.post.PromptResponse
+import com.example.appcalorias.image.ImageConverter
 import retrofit2.Response
 
 /**
@@ -41,15 +44,19 @@ class ApiUtilities {
          * @param userPrompt el prompt a enviar
          * @param image la imagen a enviar - En base64
          */
-        /*
         suspend fun postPrompt(userPrompt: String, image : String) : Response<PromptResponse> {
-            val parameters = PrompRequest (
+            val parameters = PrompRequest(
                 prompt = userPrompt,
-                image = image
+                images = listOf(image)
             )
 
+            return RetrofitClient
+                .retrofit
+                .create(ApiService::class.java)
+                .generateRequest(parameters)
+
         }
-         */
+
 
 
     }

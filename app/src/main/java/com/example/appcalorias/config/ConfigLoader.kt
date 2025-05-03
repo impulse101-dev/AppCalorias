@@ -35,7 +35,7 @@ object ConfigLoader {
         model = values["model"] ?: throw BadPropertyException("No se ha encontrado el modelo")
         ip = values["ip"] ?: throw BadPropertyException("No se ha encontrado la ip")
         port = values["port"] ?: throw BadPropertyException("No se ha encontrado el puerto")
-        modelRaw = values["model_raw"] ?: throw BadPropertyException("No se ha encontrado el ")
+        modelRaw = values["model_raw"] ?: throw BadPropertyException("No se ha encontrado el valor de raw (true / false)")
     }
 
     fun getModel(): String {
