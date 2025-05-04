@@ -63,7 +63,7 @@ object ImageConverter {
 
                 // Comprimir y convertir
                 val outputStream = ByteArrayOutputStream()
-                scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+                scaledBitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream)
 
                 // NO_WRAP es crucial - evita saltos de línea en el base64
                 return Base64.encodeToString(outputStream.toByteArray(), Base64.NO_WRAP)

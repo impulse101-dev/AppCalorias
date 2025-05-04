@@ -7,6 +7,6 @@ data class PrompRequest(
     val prompt: String,
     val stream: Boolean = false,
     //val format : String = "json",
-    val images : List<String> = emptyList(),    //no puedo enviar una sola imagen directamente...
-    val raw : Boolean = ConfigLoader.getRaw() //si despues de un par de prompts funciona mal
+    val images : Collection<String> = emptyList(),    //no puedo enviar una sola imagen directamente...
+    //val raw : Boolean = ConfigLoader.getRaw() //si despues de un par de prompts funciona mal
 )

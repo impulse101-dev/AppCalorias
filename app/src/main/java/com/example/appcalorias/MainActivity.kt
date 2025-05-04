@@ -86,10 +86,14 @@ class MainActivity : AppCompatActivity() {
 
                 Log.d("borrar", borrar)
 
+
                 val call = ApiUtilities.postPrompt(
                     etUserPrompt.text.toString(),
                     borrar
                 )
+
+
+                //call = ApiUtilities.getRunningModels()
 
                 runOnUiThread {
                     if (call.isSuccessful) {
