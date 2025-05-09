@@ -4,11 +4,9 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" />
-    <!--uses-permission android:name="android.permission.CAMERA" /-->
+        android:required="false" /> <!-- uses-permission android:name="android.permission.CAMERA" / -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -19,8 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCalorias"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".FoodPropertiesDialog"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

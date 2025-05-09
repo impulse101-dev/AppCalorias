@@ -9,11 +9,23 @@ object ConfigLoader {
     private lateinit var ip: String
     private lateinit var port: String
     private lateinit var model: String
-    private lateinit var modelRaw : String  //que no guarde el contexto
     /**
-     * TODO
-     * Acuerdate de al escribir / realizar exposicion, comentar lo de openRawResource
+     * La resolucion maxima que la IA procesara.
+     * A mayor resolucion, mayor precision, pero mayor tiempo de espera.
      */
+    private lateinit var imageMaxResolution : String
+
+    /**
+     * Peticiones de /api/generate
+     */
+    private lateinit var basePrompt : String
+
+    /**
+     * Propiedades obligatorias en la respuesta de la ia
+     */
+    private lateinit var requiredProperties : List<String>
+
+    private lateinit var formatType : String
 
 
     /**
@@ -35,7 +47,11 @@ object ConfigLoader {
         model = values["model"] ?: throw BadPropertyException("No se ha encontrado el modelo")
         ip = values["ip"] ?: throw BadPropertyException("No se ha encontrado la ip")
         port = values["port"] ?: throw BadPropertyException("No se ha encontrado el puerto")
-        //modelRaw = values["model_raw"] ?: throw BadPropertyException("No se ha encontrado el valor de raw (true / false)")
+        imageMaxResolution = values["imageMaxResolution"] ?: throw BadPropertyException("No se ha encontrado la resolucion maxima de la imagen")
+        basePrompt = values["basePrompt"] ?: throw BadPropertyException("No se ha encontrado el prompt base")
+        requiredProperties = values["requiredProperties"]?.
+            split(",") ?: throw BadPropertyException("No se han encontrado las propiedades requeridas")
+        formatType = values["formatType"] ?: throw BadPropertyException("No se ha encontrado el formato de la imagen")
     }
 
     fun getModel(): String {
@@ -50,8 +66,22 @@ object ConfigLoader {
         return port
     }
 
-    fun getRaw() : Boolean {
-        return modelRaw.toBoolean()
+    fun getImageMaxResolution(): Int {
+        return imageMaxResolution.toInt()
+    }
+
+    fun getBasePrompt(): String {
+        return basePrompt
+    }
+
+    fun getFormatType(): String {
+        return formatType
+    }
+
+    fun getRequiredProperties(): List<String> {
+        val trimmedPropeties = requiredProperties.map { it.trim() }
+        //Log.d("trimmedPropeties", trimmedPropeties.toString())
+        return trimmedPropeties
     }
 
 

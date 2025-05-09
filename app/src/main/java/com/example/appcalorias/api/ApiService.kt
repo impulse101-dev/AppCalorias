@@ -1,8 +1,8 @@
 package com.example.appcalorias.api
 
-import com.example.appcalorias.api.request.PrompRequest
+import com.example.appcalorias.api.request.prompt.PromptRequest
 import com.example.appcalorias.api.response.get.ModelsResponse
-import com.example.appcalorias.api.response.post.PromptResponse
+import com.example.appcalorias.api.response.post.PostResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,6 +22,6 @@ interface ApiService {
      * @param body de la peticion
      */
     @POST("api/generate")
-    suspend fun generateRequest(@Body body: PrompRequest) : Response<PromptResponse>
+    suspend fun generateRequest(@Body body: PromptRequest) : Response<PostResponse>
 
 }

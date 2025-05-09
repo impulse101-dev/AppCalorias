@@ -1,8 +1,9 @@
 package com.example.appcalorias.api
 
-import com.example.appcalorias.api.request.PrompRequest
-import com.example.appcalorias.api.response.post.PromptResponse
-import com.example.appcalorias.image.ImageConverter
+import com.example.appcalorias.api.request.prompt.PromptFormat
+import com.example.appcalorias.api.request.prompt.PromptRequest
+import com.example.appcalorias.api.response.post.PostResponse
+import com.example.appcalorias.config.ConfigLoader
 import retrofit2.Response
 
 /**
@@ -23,12 +24,12 @@ class ApiUtilities {
 
 
         /**
-         * Metodo que realiza un POST a la api con el prompt    (Metodo de testing, no se deberia de poder usar la aplicacion sin imagen)
-         * @param userPrompt el prompt a enviar
+         * Metodo que realiza un POST a la api con el prompt (Metodo principal de la aplicacion)
+         * @param image La imagen a enviar.
          */
-        suspend fun postPrompt(userPrompt: String): Response<PromptResponse> {
-            val parameters = PrompRequest(
-                prompt = userPrompt,
+        suspend fun postPrompt(image: String): Response<PostResponse> {
+            val parameters = PromptRequest(
+                images = listOf(image),
             )
 
             //println(parameters.asArguments())
@@ -44,9 +45,9 @@ class ApiUtilities {
          * @param userPrompt el prompt a enviar
          * @param image la imagen a enviar - En base64
          */
-        suspend fun postPrompt(userPrompt: String, image : String) : Response<PromptResponse> {
-            val parameters = PrompRequest(
-                prompt = userPrompt,
+        suspend fun postPrompt(userPrompt: String, image : String) : Response<PostResponse> {
+            val parameters = PromptRequest(
+                prompt = ConfigLoader.getBasePrompt().plus(userPrompt),
                 images = listOf(image)
             )
 

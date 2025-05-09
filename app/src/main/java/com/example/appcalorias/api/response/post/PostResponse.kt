@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.math.BigInteger
 
 //peticiones post de la api
-data class PromptResponse (
+data class PostResponse (
     @SerializedName("model") val model : String,
     @SerializedName("created_at") val createdAt : String,
     @SerializedName("response") val response : String,

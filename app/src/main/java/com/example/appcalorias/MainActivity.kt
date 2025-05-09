@@ -15,13 +15,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.api.ApiUtilities
 import com.example.appcalorias.config.ConfigLoader
+import com.example.appcalorias.databinding.ActivityMainBinding
 import com.example.appcalorias.image.ImageConverter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.net.SocketTimeoutException
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var b : ActivityMainBinding
     val btPrueba: Button by lazy { findViewById(R.id.btProbarModelo) }
     val etUserPrompt: EditText by lazy { findViewById(R.id.eTuserPrompt) }
     private val btCamera: Button by lazy { findViewById(R.id.btCamera) }
@@ -52,7 +53,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+
+        b = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(b.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -62,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         ConfigLoader.init(this)
 
         initActionListeners()
-
     }
 
     private fun initActionListeners() {
@@ -82,14 +85,14 @@ class MainActivity : AppCompatActivity() {
 //                //getModelosEjecutandose("api/ps")
 //                    getResponse(etUserPrompt.text.toString())
 
-                val borrar = ImageConverter.convertImageToBase64(ivPhoto.drawable)
+                //val borrar = ImageConverter.convertImageToBase64(ivPhoto.drawable)
 
-                Log.d("borrar", borrar)
+                //Log.d("borrar", borrar)
 
 
                 val call = ApiUtilities.postPrompt(
-                    etUserPrompt.text.toString(),
-                    borrar
+                    //etUserPrompt.text.toString(),
+                    ImageConverter.convertImageToBase64(ivPhoto.drawable)
                 )
 
 
