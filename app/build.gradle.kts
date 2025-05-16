@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,6 +47,7 @@ dependencies {
     implementation(libs.retrofit2.retrofit)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.logging.interceptor)
+    implementation(libs.androidx.room.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

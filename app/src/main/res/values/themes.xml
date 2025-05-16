@@ -5,5 +5,26 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.AppCalorias" parent="Base.Theme.AppCalorias" />
+    <style name="Theme.AppCalorias" parent="Base.Theme.AppCalorias">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/lightBlack</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="CustomBottomDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/sandia_rosa</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+    </style>
+
+
+<!--    <style name="ArrowTheme">-->
+<!--        <item name="android:background">@drawable/arrow</item>-->
+<!--        <item name="android:layout_width">100sp</item>-->
+<!--        <item name="android:layout_height">100sp</item>-->
+<!--        <item name="android:layout_marginTop">75sp</item>-->
+<!--    </style>-->
+
 </resources>

@@ -8,6 +8,10 @@ object ConfigLoader {
 
     private lateinit var ip: String
     private lateinit var port: String
+
+    /**
+     * Modelo de IA que se va a utilizar.
+     */
     private lateinit var model: String
     /**
      * La resolucion maxima que la IA procesara.

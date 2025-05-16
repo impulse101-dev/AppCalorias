@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfiguracionPerfil">
+
+    <!-- Por ahora solo en unidades metricas -->
+
+
+    <EditText
+        android:id="@+id/etAge"
+        android:layout_width="50sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25sp"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/switchGender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.341" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        app:layout_constraintEnd_toEndOf="@+id/etAge"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/etAge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.422" />
+
+    <EditText
+        android:id="@+id/etWeight"
+        android:layout_width="80sp"
+        android:layout_height="wrap_content"
+        android:hint="@string/et_HintWeight"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        app:layout_constraintEnd_toEndOf="@+id/etHeight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etHeight"
+        app:layout_constraintTop_toBottomOf="@+id/etHeight"
+        app:layout_constraintVertical_bias="0.535" />
+
+    <EditText
+        android:id="@+id/etHeight"
+        android:layout_width="80sp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        app:layout_constraintEnd_toEndOf="@+id/switchGender"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="@+id/switchGender"
+        app:layout_constraintTop_toBottomOf="@+id/switchGender"
+        app:layout_constraintVertical_bias="0.283" />
+
+    <ImageView
+        android:id="@+id/ivUpdateProfile"
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:background="@drawable/ic_commit_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/et_HintAge"
+        app:layout_constraintBottom_toBottomOf="@+id/etAge"
+        app:layout_constraintEnd_toStartOf="@+id/etAge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etAge" />
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/et_HintGender"
+        app:layout_constraintBottom_toBottomOf="@+id/switchGender"
+        app:layout_constraintEnd_toStartOf="@+id/switchGender"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switchGender" />
+
+    <TextView
+        android:id="@+id/tvHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/et_HintHeight"
+        app:layout_constraintBottom_toBottomOf="@+id/etHeight"
+        app:layout_constraintEnd_toStartOf="@+id/etHeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etHeight" />
+
+    <TextView
+        android:id="@+id/tvWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/et_HintWeight"
+        app:layout_constraintBottom_toBottomOf="@+id/etWeight"
+        app:layout_constraintEnd_toStartOf="@+id/etWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etWeight" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

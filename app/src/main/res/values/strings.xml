@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">AppCalorias</string>
     <string name="bt_galery">Galeria</string>
-    <string name="et_Hint">Agregar informacion</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="et_HintPrompt">Agregar informacion</string>
+    <string name="calories">Calorias</string>
+    <string name="carbohydrates">Hidratos de carbono</string>
+    <string name="proteins">Proteinas</string>
+    <string name="fats">Grasas</string>
+    <string name="mi_options">Calendario</string>
+    <string name="mi_profile_settings">Opciones del Perfil</string>
+    <string name="mi_calendar">Calendario</string>
+    <string name="et_HintAge">Edad 2 – 120</string>
+    <string name="et_HintHeight">Altura en cm</string>
+    <string name="et_HintWeight">Peso en kg</string>
+    <string name="et_HintGender">Genero</string>
 </resources>

@@ -12,7 +12,8 @@ data class PromptRequest(
             calories = PropertyType(),
             carbohydrates = PropertyType(),
             proteins = PropertyType(),
-            fats = PropertyType()
+            //grasas = PropertyType(),
+            sugars = PropertyType()
         )
     ),
     @SerializedName("images") val images : Collection<String> = emptyList(),

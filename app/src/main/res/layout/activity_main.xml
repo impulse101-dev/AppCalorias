@@ -8,55 +8,61 @@
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/btCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bt_galery"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="@+id/ivPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
-        app:layout_constraintVertical_bias="0.953" />
-
-    <Button
-        android:id="@+id/btProbarModelo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Prueba"
-        app:layout_constraintBottom_toTopOf="@+id/btCamera"
-        app:layout_constraintEnd_toEndOf="@+id/btCamera"
-        app:layout_constraintStart_toStartOf="@+id/btCamera"
-        app:layout_constraintTop_toBottomOf="@+id/eTuserPrompt" />
-
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="300sp"
         android:layout_height="300sp"
-        android:src="@drawable/comidafelix"
+        android:src="@drawable/resultado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.194"
+        app:layout_constraintVertical_bias="0.22"
         tools:background="@color/black" />
 
-    <EditText
-        android:id="@+id/eTuserPrompt"
-        android:layout_width="300sp"
-        android:layout_height="150sp"
-        android:hint="@string/et_Hint"
-        app:layout_constraintBottom_toTopOf="@+id/btCamera"
+    <ImageView
+        android:id="@+id/ivSendPetition"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
+        android:layout_marginTop="100sp"
+        android:background="@drawable/arrow"
         app:layout_constraintEnd_toEndOf="@+id/ivPhoto"
         app:layout_constraintStart_toStartOf="@+id/ivPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
-        android:scrollHorizontally="false"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
-        android:autofillHints=""
-        />
+        app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <EditText-->
+<!--        android:id="@+id/eTuserPrompt"-->
+<!--        android:layout_width="300sp"-->
+<!--        android:layout_height="150sp"-->
+<!--        android:hint="@string/et_Hint"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/ivPhoto"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"-->
+<!--        android:scrollHorizontally="false"-->
+<!--        android:gravity="top|start"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        android:autofillHints=""-->
+<!--        />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btProbarModelo"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="96dp"-->
+    <!--        android:text="Prueba"-->
+    <!--        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/ivPhoto"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

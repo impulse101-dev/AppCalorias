@@ -18,8 +18,8 @@ object ImageConverter {
 
     /**
      * Convierte una imagen a base64
-     * @param image la imagen a convertir
-     * @return La cadena de caracteres del drawable en base64
+     * @param drawable la imagen a convertir
+     * @return La cadena de caracteres del drawable en base64 (Formateada para la api de ollama)
      */
     fun convertImageToBase64(drawable: Drawable): String {
         val bitmap = (drawable as BitmapDrawable).bitmap

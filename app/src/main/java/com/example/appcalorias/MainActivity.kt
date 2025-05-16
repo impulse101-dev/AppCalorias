@@ -1,7 +1,10 @@
 package com.example.appcalorias
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,9 +14,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialog
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.api.ApiUtilities
+import com.example.appcalorias.api.response.post.foodProperties.FoodPropertiesManager
 import com.example.appcalorias.config.ConfigLoader
 import com.example.appcalorias.databinding.ActivityMainBinding
 import com.example.appcalorias.image.ImageConverter
@@ -22,11 +28,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var b : ActivityMainBinding
-    val btPrueba: Button by lazy { findViewById(R.id.btProbarModelo) }
-    val etUserPrompt: EditText by lazy { findViewById(R.id.eTuserPrompt) }
-    private val btCamera: Button by lazy { findViewById(R.id.btCamera) }
-    private val ivPhoto: ImageView by lazy { findViewById(R.id.ivPhoto) }
+    private lateinit var b: ActivityMainBinding
+
+    //    val btPrueba: Button by lazy { findViewById(R.id.btProbarModelo) }
+//    val etUserPrompt: EditText by lazy { findViewById(R.id.eTuserPrompt) }
+    private val ivSendRequest: ImageView by lazy { b.ivSendPetition }
+    private val ivPhoto: ImageView by lazy { b.ivPhoto }
+    private val toolBar : Toolbar by lazy { b.toolBar }
 
     /**
      * Variable que indica si el usuario ha seleccionado alguna imagen
@@ -36,11 +44,11 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri == null) {
                 Log.d("PickVisualMedia", "No se ha seleccionado nada")
-//            Toast.makeText(
-//                this,
-//                "No ha seleccionado ninguna imagen",
-//                Toast.LENGTH_SHORT
-//            )
+                Toast.makeText(
+                    this,
+                    "No ha seleccionado ninguna imagen",
+                    Toast.LENGTH_SHORT
+                )
             } else {
                 Log.d("PickVisualMedia", "Se ha seleccionado: $uri")
                 ivPhoto.setImageURI(uri)
@@ -56,8 +64,10 @@ class MainActivity : AppCompatActivity() {
 
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
+        setSupportActionBar(toolBar)
+        supportActionBar?.title = "Calories Estimator"
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -68,51 +78,88 @@ class MainActivity : AppCompatActivity() {
         initActionListeners()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.custom_toolbar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.miProfileSettings -> {
+                Intent(this, ConfiguracionPerfil::class.java).also{ startActivity(it) }
+            }
+
+            R.id.miCalendar -> {
+
+            }
+        }
+        return true
+    }
+
+    /**
+     * Inicializa los listeners de los botones.
+     */
     private fun initActionListeners() {
         ivPhoto.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
 
-        btPrueba.setOnClickListener {
+        ivSendRequest.setOnClickListener {
 
-            Toast.makeText(this, "Procesando imagen...", Toast.LENGTH_SHORT).show()
+            if (!hasImage) {
+                Toast.makeText(this, "Debe de utilizar una imagen", Toast.LENGTH_SHORT).show()
+            } else {
+
+                Toast.makeText(this, "Procesando imagen...", Toast.LENGTH_SHORT).show()
+
+                /*
+               todo
+                1.- PONER EN UN TRY CATCH EL INDEX OUT OF BOUNDS Y QUE VUELVA A HACER UNA PETICION A LA API (probar)    no creo que haga falta
+                2.- Hacer que mientras cargue la respuesta de la api, que salga un loading
+                3.- Poner la vista mas bonita
+                4.- ADRIAN, HAS QUITADO LAS GRASAS DEL PROMPT, CUIDADO POR SI DA POR CULO... JDKSLAJDLKASJDSKLA     hecho
+                5.- Documentar las clases cuando termines de hacer el to do
+                6.- Esto a lo mejor es mucho, pero estaria bien hacer una base de datos con sqlite para guardar las calorias que se van consumiendo (hacer extremadamente sencilla)
+                para el apartado 6, necesitaria entonces hacer su vista... siendo asi bastante mas trabajo... pero bueno    HACER CON ROOM (VIDEO DIEGO MOODLE)
+                7.- Al no subir una foto, en lugar de usar el Toast, poner algo que sea mas bonico
+             */
 
 
-            CoroutineScope(Dispatchers.IO).launch {
-//                val call = RetrofitClient.getApiService().
-//                create(ApiService::class.java).
-//                //getModelosEjecutandose("api/ps")
-//                    getResponse(etUserPrompt.text.toString())
+                CoroutineScope(Dispatchers.IO).launch {
 
-                //val borrar = ImageConverter.convertImageToBase64(ivPhoto.drawable)
+                    val call = ApiUtilities.postPrompt(
+                        ImageConverter.convertImageToBase64(ivPhoto.drawable)
+                    )
 
-                //Log.d("borrar", borrar)
+                    runOnUiThread {
+                        if (call.isSuccessful) {
 
+                            FoodPropertiesDialog(
+                                FoodPropertiesManager(call.body()!!).getFoodProperties()
+                            ).show(
+                                (b.root.context as AppCompatActivity).supportFragmentManager,
+                                "FoodPropertiesDialog"
+                            )
+                            Log.d(
+                                "ResultadoFoodProperties",
+                                FoodPropertiesManager(call.body()!!).getFoodProperties().toString()
+                            )
 
-                val call = ApiUtilities.postPrompt(
-                    //etUserPrompt.text.toString(),
-                    ImageConverter.convertImageToBase64(ivPhoto.drawable)
-                )
-
-
-                //call = ApiUtilities.getRunningModels()
-
-                runOnUiThread {
-                    if (call.isSuccessful) {
-                        val contenido = call.body()
-                        if (contenido != null) {
-                            println("Contenido: $contenido")
+//                            val contenido = call.body()
+//                            if (contenido != null) {
+//                                println("Contenido: $contenido")
+//                            } else {
+//                                println("Error al cargar los modelos")
+//                            }
                         } else {
-                            println("Error al cargar los modelos")
+                            println("Error en la llamada a la API\nCodigo de error: ${call.code()}")
                         }
-                    } else {
-                        println("Error en la llamada a la API\nCodigo de error: ${call.code()}")
                     }
+
                 }
 
             }
-
         }
     }
 }
