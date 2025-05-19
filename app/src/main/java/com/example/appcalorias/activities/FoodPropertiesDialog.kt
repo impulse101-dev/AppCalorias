@@ -1,4 +1,4 @@
-package com.example.appcalorias
+package com.example.appcalorias.activities
 
 import android.app.Dialog
 import android.os.Bundle

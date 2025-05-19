@@ -13,4 +13,8 @@
     <string name="et_HintHeight">Altura en cm</string>
     <string name="et_HintWeight">Peso en kg</string>
     <string name="et_HintGender">Genero</string>
+    <string name="et_HintName">Nombre</string>
+    <string name="mi_add_profile">Agregar perfil</string>
+    <string name="chipMale">M</string>
+    <string name="chipFemale">F</string>
 </resources>

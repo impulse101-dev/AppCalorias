@@ -1,27 +1,25 @@
-package com.example.appcalorias
+package com.example.appcalorias.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.appcalorias.R
 import com.example.appcalorias.api.ApiUtilities
 import com.example.appcalorias.api.response.post.foodProperties.FoodPropertiesManager
 import com.example.appcalorias.config.ConfigLoader
 import com.example.appcalorias.databinding.ActivityMainBinding
+import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +35,16 @@ class MainActivity : AppCompatActivity() {
     private val toolBar : Toolbar by lazy { b.toolBar }
 
     /**
+     * Variable que contiene el usuario logueado
+     */
+    var userSelected : User? = null
+
+    /**
      * Variable que indica si el usuario ha seleccionado alguna imagen
      */
     private var hasImage: Boolean = false
     private val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri == null) {
                 Log.d("PickVisualMedia", "No se ha seleccionado nada")
                 Toast.makeText(
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         setSupportActionBar(toolBar)
-        supportActionBar?.title = "Calories Estimator"
+        supportActionBar?.title = "Calories Estimator"          //todo haz un ToolBarManager para no estar repitiendo el codigo
 
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -79,14 +82,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.custom_toolbar, menu)
+        menuInflater.inflate(R.menu.custom_main_toolbar, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.miProfileSettings -> {
-                Intent(this, ConfiguracionPerfil::class.java).also{ startActivity(it) }
+            R.id.miAddProfile -> {
+                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
             }
 
             R.id.miCalendar -> {
