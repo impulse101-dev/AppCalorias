@@ -1,8 +1,7 @@
-package com.example.appcalorias.api
+package com.example.appcalorias.api.ollama
 
-import com.example.appcalorias.api.request.prompt.PromptFormat
-import com.example.appcalorias.api.request.prompt.PromptRequest
-import com.example.appcalorias.api.response.post.PostResponse
+import com.example.appcalorias.api.ollama.prompt.PromptRequest
+import com.example.appcalorias.api.ollama.response.post.PostResponse
 import com.example.appcalorias.config.ConfigLoader
 import retrofit2.Response
 

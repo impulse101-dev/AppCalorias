@@ -1,4 +1,4 @@
-package com.example.appcalorias.api.response.get
+package com.example.appcalorias.api.ollama.response.get
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigInteger

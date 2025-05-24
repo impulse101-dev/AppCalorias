@@ -1,7 +1,7 @@
-package com.example.appcalorias.api.response.post.foodProperties
+package com.example.appcalorias.api.ollama.response.post.foodProperties
 
 import android.util.Log
-import com.example.appcalorias.api.response.post.PostResponse
+import com.example.appcalorias.api.ollama.response.post.PostResponse
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 

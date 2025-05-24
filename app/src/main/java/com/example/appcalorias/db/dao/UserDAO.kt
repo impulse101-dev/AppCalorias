@@ -21,4 +21,11 @@ interface UserDAO {
      * @see getAll
      */
     suspend fun deleteAll(users : List<User>)
+
+    @Delete
+    /**
+     * Elimina un usuario de la base de datos
+     * @param user el usuario a eliminar
+     */
+    suspend fun deleteUser(user: User)
 }

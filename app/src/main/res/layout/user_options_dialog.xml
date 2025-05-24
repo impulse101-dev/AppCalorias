@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".activities.UserOptionsDialog">
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:layout_marginTop="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"
+        app:layout_constraintStart_toStartOf="@+id/ivPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"
+        tools:text="Pepito Flores" />
+
+
+    <ImageView
+        android:layout_marginTop="50sp"
+        android:id="@+id/ivPhoto"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBMR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+        <TextView
+            android:id="@+id/tvBMRTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_bmrTitle" />
+
+        <TextView
+            android:id="@+id/tvBMRValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            tools:text="1800" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="60sp"
+        android:id="@+id/linearLayoutButtonsOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutBMR"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutBMR"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutBMR">
+
+        <!-- Esto de aqui esta muy justo -->
+
+        <Button
+            android:id="@+id/btSeleccionar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_SelectUser"
+            android:textSize="11sp"
+            android:layout_margin="10sp"
+            />
+
+<!--        <Button-->
+<!--            android:id="@+id/btModificar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_marginBottom="8sp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/bt_EditUser"-->
+<!--            android:textSize="11sp"-->
+<!--            />-->
+
+        <Button
+            android:id="@+id/btBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_DeleteUser"
+            android:textSize="11sp"
+            android:layout_margin="10sp"
+            />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

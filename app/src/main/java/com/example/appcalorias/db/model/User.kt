@@ -13,4 +13,12 @@ data class User(
     var gender : Gender,
     var height : Int,
     var bmr : Int,
+    var image : String = "https://api.dicebear.com/9.x/lorelei-neutral/png?seed=${name.replace(" ", "")}"
 )
+
+//{
+    //la imagen no debe de ser puesta en el constructor
+//    private var _image : String = "https://api.dicebear.com/9.x/lorelei-neutral/svg?seed=${name.replace(" ", "")}"
+
+//    val image : String get() = _image      //cada vez que se llame a esta propiedad, se cargara la imagen que tiene
+//}

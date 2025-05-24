@@ -3,7 +3,7 @@ package com.example.appcalorias.activities
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.appcalorias.api.response.post.foodProperties.FoodProperties
+import com.example.appcalorias.api.ollama.response.post.foodProperties.FoodProperties
 import com.example.appcalorias.databinding.FoodPropertiesDialogBinding
 
 class FoodPropertiesDialog(private val foodProperties : FoodProperties)

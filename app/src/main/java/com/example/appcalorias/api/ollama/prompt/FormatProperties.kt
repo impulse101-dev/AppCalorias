@@ -1,4 +1,4 @@
-package com.example.appcalorias.api.request.prompt
+package com.example.appcalorias.api.ollama.prompt
 
 /**
  * Data class la cual representa el formato de las propiedades.

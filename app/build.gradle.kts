@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.picasso)
     val roomVersion = "2.7.1"
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-runtime:$roomVersion")

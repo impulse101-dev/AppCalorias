@@ -1,4 +1,4 @@
-package com.example.appcalorias.api
+package com.example.appcalorias.api.ollama
 
 import com.example.appcalorias.config.ConfigLoader
 import okhttp3.OkHttpClient

@@ -8,19 +8,17 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.R
-import com.example.appcalorias.api.ApiUtilities
-import com.example.appcalorias.api.response.post.foodProperties.FoodPropertiesManager
+import com.example.appcalorias.api.ollama.ApiUtilities
+import com.example.appcalorias.api.ollama.response.post.foodProperties.FoodPropertiesManager
 import com.example.appcalorias.config.ConfigLoader
 import com.example.appcalorias.databinding.ActivityMainBinding
 import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
+import com.example.appcalorias.image.ImagePickerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 //    val etUserPrompt: EditText by lazy { findViewById(R.id.eTuserPrompt) }
     private val ivSendRequest: ImageView by lazy { b.ivSendPetition }
     private val ivPhoto: ImageView by lazy { b.ivPhoto }
-    private val toolBar : Toolbar by lazy { b.toolBar }
 
     /**
      * Variable que contiene el usuario logueado
@@ -43,22 +40,9 @@ class MainActivity : AppCompatActivity() {
      * Variable que indica si el usuario ha seleccionado alguna imagen
      */
     private var hasImage: Boolean = false
-    private val pickMedia =
-        registerForActivityResult(PickVisualMedia()) { uri ->
-            if (uri == null) {
-                Log.d("PickVisualMedia", "No se ha seleccionado nada")
-                Toast.makeText(
-                    this,
-                    "No ha seleccionado ninguna imagen",
-                    Toast.LENGTH_SHORT
-                )
-            } else {
-                Log.d("PickVisualMedia", "Se ha seleccionado: $uri")
-                ivPhoto.setImageURI(uri)
-                hasImage = true
-            }
-            Log.d("hasImage", "$hasImage")
-        }
+    private lateinit var imagePicker : ImagePickerManager
+
+    private var runningModel : Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
-        setSupportActionBar(toolBar)
+        setSupportActionBar(b.toolBar)
         supportActionBar?.title = "Calories Estimator"          //todo haz un ToolBarManager para no estar repitiendo el codigo
 
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
@@ -78,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         ConfigLoader.init(this)
 
-        initActionListeners()
+        initProperties()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -95,8 +79,18 @@ class MainActivity : AppCompatActivity() {
             R.id.miCalendar -> {
 
             }
+
+            R.id.miProfileList -> {
+                Intent(this, ListaUsuarios::class.java).also{ startActivity(it) }
+            }
         }
         return true
+    }
+
+    private fun initProperties () {
+        imagePicker = ImagePickerManager(this, autoLoadInto = ivPhoto)
+
+        initActionListeners()
     }
 
     /**
@@ -104,7 +98,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun initActionListeners() {
         ivPhoto.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+            imagePicker.pickImage()
+            if (imagePicker.hasImage) {
+                hasImage = true     //al haber seleccionado ya una imagen, basta
+            }
         }
 
 
@@ -112,16 +109,17 @@ class MainActivity : AppCompatActivity() {
 
             if (!hasImage) {
                 Toast.makeText(this, "Debe de utilizar una imagen", Toast.LENGTH_SHORT).show()
+
+            } else if (runningModel) {
+                Toast.makeText(this, "Una peticion ya se esta ejecutando", Toast.LENGTH_SHORT).show()
             } else {
 
                 Toast.makeText(this, "Procesando imagen...", Toast.LENGTH_SHORT).show()
 
                 /*
                todo
-                1.- PONER EN UN TRY CATCH EL INDEX OUT OF BOUNDS Y QUE VUELVA A HACER UNA PETICION A LA API (probar)    no creo que haga falta
                 2.- Hacer que mientras cargue la respuesta de la api, que salga un loading
                 3.- Poner la vista mas bonita
-                4.- ADRIAN, HAS QUITADO LAS GRASAS DEL PROMPT, CUIDADO POR SI DA POR CULO... JDKSLAJDLKASJDSKLA     hecho
                 5.- Documentar las clases cuando termines de hacer el to do
                 6.- Esto a lo mejor es mucho, pero estaria bien hacer una base de datos con sqlite para guardar las calorias que se van consumiendo (hacer extremadamente sencilla)
                 para el apartado 6, necesitaria entonces hacer su vista... siendo asi bastante mas trabajo... pero bueno    HACER CON ROOM (VIDEO DIEGO MOODLE)
@@ -130,6 +128,8 @@ class MainActivity : AppCompatActivity() {
 
 
                 CoroutineScope(Dispatchers.IO).launch {
+
+                    runningModel = true
 
                     val call = ApiUtilities.postPrompt(
                         ImageConverter.convertImageToBase64(ivPhoto.drawable)
@@ -144,6 +144,9 @@ class MainActivity : AppCompatActivity() {
                                 (b.root.context as AppCompatActivity).supportFragmentManager,
                                 "FoodPropertiesDialog"
                             )
+
+                            runningModel = false
+
                             Log.d(
                                 "ResultadoFoodProperties",
                                 FoodPropertiesManager(call.body()!!).getFoodProperties().toString()

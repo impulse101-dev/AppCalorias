@@ -1,4 +1,4 @@
-package com.example.appcalorias.api.response.post.foodProperties
+package com.example.appcalorias.api.ollama.response.post.foodProperties
 
 /**
  * Data class la cual representa las propiedas de la comida.

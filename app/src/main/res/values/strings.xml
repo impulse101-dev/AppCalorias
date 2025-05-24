@@ -9,7 +9,7 @@
     <string name="mi_options">Calendario</string>
     <string name="mi_profile_settings">Opciones del Perfil</string>
     <string name="mi_calendar">Calendario</string>
-    <string name="et_HintAge">Edad 2 – 120</string>
+    <string name="et_HintAge">Edad</string>
     <string name="et_HintHeight">Altura en cm</string>
     <string name="et_HintWeight">Peso en kg</string>
     <string name="et_HintGender">Genero</string>
@@ -17,4 +17,9 @@
     <string name="mi_add_profile">Agregar perfil</string>
     <string name="chipMale">M</string>
     <string name="chipFemale">F</string>
+    <string name="et_HintUserPhoto">Foto perfil</string>
+    <string name="tv_bmrTitle">BMR</string>
+    <string name="bt_SelectUser">Seleccionar</string>
+    <string name="bt_EditUser">Modificar</string>
+    <string name="bt_DeleteUser">Borrar</string>
 </resources>

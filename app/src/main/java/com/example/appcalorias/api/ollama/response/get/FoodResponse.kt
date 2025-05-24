@@ -1,4 +1,4 @@
-package com.example.appcalorias.api.response.get
+package com.example.appcalorias.api.ollama.response.get
 
 data class FoodResponse(
     val isFood : Boolean,

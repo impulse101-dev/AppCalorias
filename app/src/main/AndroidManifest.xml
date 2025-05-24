@@ -20,10 +20,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.example.appcalorias.activities.AddEditProfile"
+            android:name=".activities.UserOptionsDialog"
             android:exported="false" />
         <activity
-            android:name=".activities.AgregarPerfil"
+            android:name=".activities.ListaUsuarios"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddEditProfile"
             android:exported="false" />
         <activity
             android:name=".activities.FoodPropertiesDialog"

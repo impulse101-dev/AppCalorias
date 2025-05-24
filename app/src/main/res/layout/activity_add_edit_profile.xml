@@ -10,6 +10,8 @@
     <!-- Por ahora solo en unidades metricas -->
 
 
+    <!-- Hacer mejor que esto sea un chip_group -->
+
     <TextView
         android:id="@+id/tvAge"
         android:layout_width="wrap_content"
@@ -17,10 +19,9 @@
         android:text="@string/et_HintAge"
         app:layout_constraintBottom_toBottomOf="@+id/etAge"
         app:layout_constraintEnd_toStartOf="@+id/etAge"
-        app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etAge"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <TextView
         android:id="@+id/tvName"
@@ -30,10 +31,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/etName"
         app:layout_constraintEnd_toStartOf="@+id/etName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etName" />
-
-
-    <!-- Hacer mejor que esto sea un chip_group -->
+        app:layout_constraintTop_toTopOf="@+id/etName"
+        app:layout_constraintVertical_bias="0.695" />
 
     <TextView
         android:id="@+id/tvWeight"
@@ -42,41 +41,39 @@
         android:text="@string/et_HintWeight"
         app:layout_constraintBottom_toBottomOf="@+id/etWeight"
         app:layout_constraintEnd_toStartOf="@+id/etWeight"
-        app:layout_constraintHorizontal_bias="0.258"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etWeight"
         app:layout_constraintVertical_bias="0.523" />
+
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        android:layout_marginTop="28sp"
         app:layout_constraintEnd_toEndOf="@+id/etAge"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="@+id/etAge"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintTop_toBottomOf="@+id/etAge"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipMale"
-            android:text="@string/chipMale"
-            android:textSize="15sp"
-            android:checkable="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="@string/chipMale"
+            android:textSize="15sp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipFemale"
-            android:text="@string/chipFemale"
-            android:textSize="15sp"
-            android:checkable="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="@string/chipFemale"
+            android:textSize="15sp" />
 
     </com.google.android.material.chip.ChipGroup>
-
 
     <TextView
         android:id="@+id/tvGender"
@@ -85,59 +82,55 @@
         android:text="@string/et_HintGender"
         app:layout_constraintBottom_toBottomOf="@+id/chipGroup"
         app:layout_constraintEnd_toStartOf="@+id/chipGroup"
-        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chipGroup"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/etWeight"
         android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        android:layout_marginTop="28sp"
         app:layout_constraintEnd_toEndOf="@+id/etHeight"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etHeight"
-        app:layout_constraintTop_toBottomOf="@+id/etHeight"
-        app:layout_constraintVertical_bias="0.546" />
+        app:layout_constraintTop_toBottomOf="@+id/etHeight" />
 
     <EditText
         android:id="@+id/etAge"
         android:layout_width="80sp"
         android:layout_height="wrap_content"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+        android:layout_marginTop="28sp"
         app:layout_constraintEnd_toEndOf="@+id/etName"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/etName"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
-        app:layout_constraintVertical_bias="0.362" />
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="200sp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28sp"
         android:inputType="text"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        app:layout_constraintVertical_bias="0.259" />
+        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
     <EditText
         android:id="@+id/etHeight"
         android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/ivUpdateProfile"
+        android:layout_marginTop="28sp"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
-        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/chipGroup"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
     <TextView
         android:id="@+id/tvHeight"
@@ -146,11 +139,9 @@
         android:text="@string/et_HintHeight"
         app:layout_constraintBottom_toBottomOf="@+id/etHeight"
         app:layout_constraintEnd_toStartOf="@+id/etHeight"
-        app:layout_constraintHorizontal_bias="0.319"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etHeight"
         app:layout_constraintVertical_bias="0.523" />
-
 
     <ImageView
         android:id="@+id/ivUpdateProfile"
@@ -158,22 +149,20 @@
         android:layout_height="100sp"
         android:background="@drawable/ic_commit_foreground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.723"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintEnd_toEndOf="@+id/etWeight"
+        app:layout_constraintStart_toStartOf="@+id/etWeight"
+        app:layout_constraintTop_toBottomOf="@+id/etWeight" />
 
     <ImageView
         android:id="@+id/ivSaveNewProfile"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:background="@drawable/ic_add_profile_foreground"
-        app:layout_constraintBottom_toBottomOf="@+id/ivUpdateProfile"
-        app:layout_constraintEnd_toStartOf="@+id/ivUpdateProfile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivUpdateProfile"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvWeight"
+        app:layout_constraintStart_toStartOf="@+id/tvWeight"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeight" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"

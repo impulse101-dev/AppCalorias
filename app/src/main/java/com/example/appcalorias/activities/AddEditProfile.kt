@@ -37,9 +37,9 @@ class AddEditProfile : AppCompatActivity() {
     private val ivUpdateProfile : ImageView by lazy { b.ivUpdateProfile }
     private val ivAddProfile : ImageView by lazy { b.ivSaveNewProfile }
     private val etName : EditText by lazy { b.etName }
-    private val toolBar : Toolbar by lazy { b.toolBar }
 
     private lateinit var room : AppCaloriesDB
+    //private lateinit var userImagePicker: ImagePickerManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class AddEditProfile : AppCompatActivity() {
         enableEdgeToEdge()
 
         b = ActivityAddEditProfileBinding.inflate(layoutInflater)
-        setSupportActionBar(toolBar)
+        setSupportActionBar(b.toolBar)
 
         setContentView(b.root)
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
@@ -56,7 +56,15 @@ class AddEditProfile : AppCompatActivity() {
             insets
         }
 
+        initProperties()
+    }
+
+    private fun initProperties () {
         room = DatabaseProvider.getDatabase(this)
+//        userImagePicker = ImagePickerManager(
+//            this,
+//            ivUserPhoto
+//        )
         initActionListeners()
     }
 
@@ -86,6 +94,10 @@ class AddEditProfile : AppCompatActivity() {
             }
 
         }
+
+//        ivUserPhoto.setOnClickListener {
+//            userImagePicker.pickImage()
+//        }
     }
 
 
@@ -111,6 +123,7 @@ class AddEditProfile : AppCompatActivity() {
             height = height,
             weight = weight,
             gender = gender,
+            //image = "",
             bmr = calculateBMR(
                 age, gender, height, weight
             )
@@ -119,13 +132,11 @@ class AddEditProfile : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val userDao = room.getUserDAO()
 
-            println("usuarios: ${userDao.getAll()}, size: ${userDao.getAll().size}")
-
-
             userDao.insertUser(user)
             //userDao.deleteAll(userDao.getAll())
             println("tras el delete: ${userDao.getAll()}, size: ${userDao.getAll().size}")
         }
+        Toast.makeText(this, "Usuario agregado", Toast.LENGTH_SHORT).show()
     }
 
     /**
