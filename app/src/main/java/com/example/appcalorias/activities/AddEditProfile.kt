@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.R
@@ -35,8 +34,8 @@ class AddEditProfile : AppCompatActivity() {
     private val etHeight : EditText by lazy { b.etHeight }
     private val etWeight : EditText by lazy { b.etWeight }
     private val ivUpdateProfile : ImageView by lazy { b.ivUpdateProfile }
-    private val ivAddProfile : ImageView by lazy { b.ivSaveNewProfile }
-    private val etName : EditText by lazy { b.etName }
+//    private val ivAddProfile : ImageView by lazy { b.ivSaveNewProfile }
+//    private val etName : EditText by lazy { b.etName }
 
     private lateinit var room : AppCaloriesDB
     //private lateinit var userImagePicker: ImagePickerManager
@@ -75,7 +74,11 @@ class AddEditProfile : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.miAddProfile -> {
+//            R.id.miAddProfile -> {
+//                Toast.makeText(this, "Ya estas en esta pantalla", Toast.LENGTH_SHORT).show()
+//            }
+
+            R.id.miProfile -> {
                 Toast.makeText(this, "Ya estas en esta pantalla", Toast.LENGTH_SHORT).show()
             }
 
@@ -88,9 +91,9 @@ class AddEditProfile : AppCompatActivity() {
 
     private fun initActionListeners () {
 
-        ivAddProfile.setOnClickListener {
+        ivUpdateProfile.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                addProfile()
+                //todo AQUI ACTUALIZA EL PERFIL QUE YA EXISTE MY NAME!!!
             }
 
         }
@@ -119,7 +122,7 @@ class AddEditProfile : AppCompatActivity() {
 
         val user = User(
             age = age,
-            name = etName.text.toString(),
+            //name = etName.text.toString(),
             height = height,
             weight = weight,
             gender = gender,
@@ -145,7 +148,7 @@ class AddEditProfile : AppCompatActivity() {
      */
     private fun validateFields() : Boolean {
         return (
-                etName.text.toString().isNotBlank() &&
+                //etName.text.toString().isNotBlank() &&
                         etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
                         etAge.text.toString().toInt() > 0 &&
                         etAge.text.toString().toInt() < 140 &&

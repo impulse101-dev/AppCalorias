@@ -14,12 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.R
 import com.example.appcalorias.api.ollama.ApiUtilities
 import com.example.appcalorias.api.ollama.response.post.foodProperties.FoodPropertiesManager
-import com.example.appcalorias.config.ConfigLoader
+import com.example.appcalorias.api.ollama.config.ConfigLoader
 import com.example.appcalorias.databinding.ActivityMainBinding
-import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
 import com.example.appcalorias.image.ImagePickerManager
-import com.example.appcalorias.user.UserSession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,24 +66,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.miAddProfile -> {
-                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
-            }
+//            R.id.miAddProfile -> {
+//                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
+//            }
 
             R.id.miCalendar -> {
 
             }
 
-            R.id.miProfileList -> {
-                Intent(this, ListaUsuarios::class.java).also{ startActivity(it) }
+            R.id.miProfile -> {
+                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
             }
         }
         return true
     }
 
     private fun initProperties () {
-        UserSession.initialize(this)
-        Log.d("UsserSession1", "${UserSession.getUser}")
+//        UserSession.initialize(this)
+//        Log.d("UsserSession1", "${UserSession.getUser}")
         imagePicker = ImagePickerManager(this, autoLoadInto = ivPhoto)
 
         initActionListeners()

@@ -8,7 +8,7 @@ import com.example.appcalorias.db.model.User
 
 @Database(
     entities = [User::class],
-    version = 5
+    version = 6
 )
 abstract class AppCaloriesDB : RoomDatabase() {
     abstract fun getUserDAO() : UserDAO

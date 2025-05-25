@@ -1,6 +1,6 @@
 package com.example.appcalorias.api.ollama
 
-import com.example.appcalorias.config.ConfigLoader
+import com.example.appcalorias.api.ollama.config.ConfigLoader
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

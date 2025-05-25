@@ -35,8 +35,8 @@ class UserOptionsDialog(private val user: User, private val onUserDeleted: (() -
     }
 
     private fun setText () {
-        Picasso.get().load(user.image).into(b.ivPhoto)
-        b.tvName.text = user.name
+//        Picasso.get().load(user.image).into(b.ivPhoto)
+//        b.tvName.text = user.name
         b.tvBMRValue.text = user.bmr.toString()
     }
 

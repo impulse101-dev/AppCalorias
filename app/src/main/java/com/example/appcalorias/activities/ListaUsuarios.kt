@@ -91,9 +91,9 @@ class ListaUsuarios : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.miAddProfile -> {
-                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
-            }
+//            R.id.miAddProfile -> {
+//                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
+//            }
 
             R.id.miCalendar -> {
 

@@ -9,18 +9,18 @@
 
 
     <item
-        android:id="@+id/miProfileList"
+        android:id="@+id/miProfile"
         android:title="@string/mi_profile_settings"
         android:icon="@drawable/ic_profile_settings_foreground"
         app:showAsAction="always"
         />
 
-    <item
-        android:id="@+id/miAddProfile"
-        android:title="@string/mi_add_profile"
-        android:icon="@drawable/ic_add_profile_foreground"
-        app:showAsAction="always"
-        />
+<!--    <item-->
+<!--        android:id="@+id/miAddProfile"-->
+<!--        android:title="@string/mi_add_profile"-->
+<!--        android:icon="@drawable/ic_add_profile_foreground"-->
+<!--        app:showAsAction="always"-->
+<!--        /> NO HARIA NI FALTA EL TOOLBAR MANAGER -->
 
     <item
         android:id="@+id/miCalendar"

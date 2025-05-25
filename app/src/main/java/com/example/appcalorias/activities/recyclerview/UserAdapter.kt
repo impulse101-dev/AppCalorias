@@ -13,6 +13,11 @@ class UserAdapter (private var users: List<User>, private val fn : (User) -> Uni
     : RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
 
+        companion object {
+
+        }
+
+        //todo ADAPTAR PARA LAS CALORIAS DE CADA DIA ESTE RECYCLERVIEW
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             return UserViewHolder(layoutInflater.inflate(R.layout.item_user, parent, false))
@@ -30,13 +35,13 @@ class UserAdapter (private var users: List<User>, private val fn : (User) -> Uni
             private val b = ItemUserBinding.bind(view)
 
             fun bind (user : User) {
-                Picasso
-                    .get()
-                    .load(user.image)
-                    .into(b.ivUserPhoto)
-
-                b.tvName.text = user.name.toString()
-                println("Usuario: ${user.name} con image: ${user.image}")
+//                Picasso
+//                    .get()
+//                    .load(user.image)
+//                    .into(b.ivUserPhoto)
+//
+//                b.tvName.text = user.name.toString()
+//                println("Usuario: ${user.name} con image: ${user.image}")
 
                 itemView.setOnClickListener { fn(user) }
             }

@@ -1,4 +1,4 @@
-package com.example.appcalorias.config
+package com.example.appcalorias.api.ollama.config
 
 import android.content.Context
 import com.example.appcalorias.R
