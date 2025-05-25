@@ -2,8 +2,6 @@ package com.example.appcalorias.activities
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.appcalorias.databinding.UserOptionsDialogBinding
 import com.example.appcalorias.db.AppCaloriesDB
@@ -14,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserOptionsDialog(private val user: User, private val onUserDeleted: Unit? = null)
+class UserOptionsDialog(private val user: User, private val onUserDeleted: (() -> Unit)? = null)
     : DialogFragment() {
 
     private lateinit var b : UserOptionsDialogBinding
@@ -49,13 +47,13 @@ class UserOptionsDialog(private val user: User, private val onUserDeleted: Unit?
 
             CoroutineScope(Dispatchers.IO).launch {
                 userDao.deleteUser(user)
-                onUserDeleted?.let {
-                    Log.d("onUserDeleted","Ha ocurrido un error, la funcion es nula")
-                }       //todo AQUI VAS A TENER QUE HACER EL MVVM AJAJJAJAJA
-            }
 
-            
-            Toast.makeText(this.requireContext(), "Se ha borrado el usuario ${user.name}", Toast.LENGTH_SHORT).show()
+
+                activity?.runOnUiThread {
+                    onUserDeleted?.invoke()
+                    dismiss()       //cierra el DialogFragment
+                }
+            }
         }
     }
 

@@ -19,22 +19,18 @@ import com.example.appcalorias.databinding.ActivityMainBinding
 import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
 import com.example.appcalorias.image.ImagePickerManager
+import com.example.appcalorias.user.UserSession
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var b: ActivityMainBinding
 
-    //    val btPrueba: Button by lazy { findViewById(R.id.btProbarModelo) }
-//    val etUserPrompt: EditText by lazy { findViewById(R.id.eTuserPrompt) }
     private val ivSendRequest: ImageView by lazy { b.ivSendPetition }
     private val ivPhoto: ImageView by lazy { b.ivPhoto }
 
-    /**
-     * Variable que contiene el usuario logueado
-     */
-    var userSelected : User? = null
 
     /**
      * Variable que indica si el usuario ha seleccionado alguna imagen
@@ -88,6 +84,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initProperties () {
+        UserSession.initialize(this)
+        Log.d("UsserSession1", "${UserSession.getUser}")
         imagePicker = ImagePickerManager(this, autoLoadInto = ivPhoto)
 
         initActionListeners()
@@ -99,13 +97,14 @@ class MainActivity : AppCompatActivity() {
     private fun initActionListeners() {
         ivPhoto.setOnClickListener {
             imagePicker.pickImage()
-            if (imagePicker.hasImage) {
-                hasImage = true     //al haber seleccionado ya una imagen, basta
-            }
         }
 
 
         ivSendRequest.setOnClickListener {
+
+            if (imagePicker.hasImage()) {
+                hasImage = true     //al haber seleccionado ya una imagen, basta
+            }
 
             if (!hasImage) {
                 Toast.makeText(this, "Debe de utilizar una imagen", Toast.LENGTH_SHORT).show()

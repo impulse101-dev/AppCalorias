@@ -55,9 +55,9 @@ class ListaUsuarios : AppCompatActivity() {
         //Intent(this, UserOptionsDialog::class.java).also { startActivity(it) }
         UserOptionsDialog(
             user,
-            loadEpisodes()
+            onUserDeleted = {loadEpisodes()}
         ).show(
-            (b.root.context as AppCompatActivity).supportFragmentManager,
+            supportFragmentManager,
             null
         )
     }

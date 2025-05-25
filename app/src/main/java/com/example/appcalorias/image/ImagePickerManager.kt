@@ -38,9 +38,6 @@ class ImagePickerManager(
     /** Propiedad que indica si el usuario ha seleccionado una imagen, propiedad que puede variar dentro de la clase*/
     private var pHasImage = false
 
-    /** El valor de hasImage se calcula dinámicamente cada vez que se accede a ella ("get()"), devolviendo el valor actual de pHasImage. */
-    val hasImage get() = pHasImage  //todo no se esta usando
-
     /** Lanzador de actividad para seleccionar imagenes */
     private val pickMedia : ActivityResultLauncher<PickVisualMediaRequest>
 
@@ -109,5 +106,9 @@ class ImagePickerManager(
 
     fun pickImage () {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    fun hasImage () : Boolean {
+        return pHasImage
     }
 }

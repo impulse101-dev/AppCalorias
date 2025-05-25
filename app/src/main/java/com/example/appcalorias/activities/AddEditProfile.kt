@@ -133,10 +133,10 @@ class AddEditProfile : AppCompatActivity() {
             val userDao = room.getUserDAO()
 
             userDao.insertUser(user)
-            //userDao.deleteAll(userDao.getAll())
+            finish()
             println("tras el delete: ${userDao.getAll()}, size: ${userDao.getAll().size}")
         }
-        Toast.makeText(this, "Usuario agregado", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Usuario agregado", Toast.LENGTH_SHORT).show()
     }
 
     /**
