@@ -4,28 +4,27 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
-import com.example.appcalorias.db.model.User
+import com.example.appcalorias.db.model.user.User
 
 @Dao
 interface UserDAO {
     @Query("SELECT * FROM User")
-    suspend fun getAll() : List<User>
+    suspend fun getAllUsers() : List<User>
 
-    @Query("SELECT * FROM User WHERE id = :userId")
-    suspend fun getUserById(userId: Int) : User?
+//    @Query("SELECT * FROM User WHERE id = :userId")
+//    suspend fun getUserById(userId: Int) : User?
 
     @Insert
     suspend fun insertUser(user : User)
 
-    @Update
-    suspend fun updateUser(user: User)
+//    @Update
+//    suspend fun updateUser(user: User)
 
     @Delete
     /**
      * Este metodo debe de usarse con la lista de usuarios que se saca de la base de datos
      * @param users lista de usuarios a eliminar
-     * @see getAll
+     * @see getAllUsers
      */
     suspend fun deleteAll(users : List<User>)
 

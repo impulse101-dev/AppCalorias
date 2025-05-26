@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appcalorias.R
 import com.example.appcalorias.databinding.ItemUserBinding
-import com.example.appcalorias.db.model.User
-import com.squareup.picasso.Picasso
+import com.example.appcalorias.db.model.user.User
 
 class UserAdapter (private var users: List<User>, private val fn : (User) -> Unit)
     : RecyclerView.Adapter<UserAdapter.UserViewHolder>()

@@ -1,8 +1,6 @@
 package com.example.appcalorias.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +14,7 @@ import com.example.appcalorias.activities.recyclerview.UserAdapter
 import com.example.appcalorias.databinding.ActivityListaUsuariosBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.User
+import com.example.appcalorias.db.model.user.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,17 +62,17 @@ class ListaUsuarios : AppCompatActivity() {
 
     private fun loadEpisodes() {
         CoroutineScope(Dispatchers.IO).launch {
-            val users : List<User> = room.getUserDAO().getAll()
+            //val users : List<User> = room.getUserDAO().getAll()
 
-            Log.d("Lista de usuarios", users.toString())
+           // Log.d("Lista de usuarios", users.toString())
 
-            runOnUiThread {
-                if (users.isNotEmpty()) {
-                    initRecyclerView(users)
-                } else {
-                    Log.d("loadEpisodios","Error al cargar los usuarios, no hay usuarios en la base de datos")
-                }
-            }
+//            runOnUiThread {
+//                if (users.isNotEmpty()) {
+//                    initRecyclerView(users)
+//                } else {
+//                    Log.d("loadEpisodios","Error al cargar los usuarios, no hay usuarios en la base de datos")
+//                }
+//            }
         }
     }
 

@@ -14,8 +14,8 @@ import com.example.appcalorias.R
 import com.example.appcalorias.databinding.ActivityAddEditProfileBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.Gender
-import com.example.appcalorias.db.model.User
+import com.example.appcalorias.db.model.user.res.Gender
+import com.example.appcalorias.db.model.user.User
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +23,10 @@ import kotlinx.coroutines.launch
 
 //https://www.calculator.net/bmi-calculator.html !!!!!!!!!!!!!!
 
+
+/**
+ * Actividad encargada de modificar el perfil del usuario
+ */
 class AddEditProfile : AppCompatActivity() {
 
 
@@ -34,11 +38,8 @@ class AddEditProfile : AppCompatActivity() {
     private val etHeight : EditText by lazy { b.etHeight }
     private val etWeight : EditText by lazy { b.etWeight }
     private val ivUpdateProfile : ImageView by lazy { b.ivUpdateProfile }
-//    private val ivAddProfile : ImageView by lazy { b.ivSaveNewProfile }
-//    private val etName : EditText by lazy { b.etName }
 
     private lateinit var room : AppCaloriesDB
-    //private lateinit var userImagePicker: ImagePickerManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +47,6 @@ class AddEditProfile : AppCompatActivity() {
         enableEdgeToEdge()
 
         b = ActivityAddEditProfileBinding.inflate(layoutInflater)
-        setSupportActionBar(b.toolBar)
 
         setContentView(b.root)
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
@@ -59,6 +59,9 @@ class AddEditProfile : AppCompatActivity() {
     }
 
     private fun initProperties () {
+        b.toolBar.setTitle("Editar perfil")
+        setSupportActionBar(b.toolBar)
+
         room = DatabaseProvider.getDatabase(this)
 //        userImagePicker = ImagePickerManager(
 //            this,
@@ -74,10 +77,6 @@ class AddEditProfile : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.miAddProfile -> {
-//                Toast.makeText(this, "Ya estas en esta pantalla", Toast.LENGTH_SHORT).show()
-//            }
-
             R.id.miProfile -> {
                 Toast.makeText(this, "Ya estas en esta pantalla", Toast.LENGTH_SHORT).show()
             }
@@ -97,10 +96,6 @@ class AddEditProfile : AppCompatActivity() {
             }
 
         }
-
-//        ivUserPhoto.setOnClickListener {
-//            userImagePicker.pickImage()
-//        }
     }
 
 
@@ -127,9 +122,7 @@ class AddEditProfile : AppCompatActivity() {
             weight = weight,
             gender = gender,
             //image = "",
-            bmr = calculateBMR(
-                age, gender, height, weight
-            )
+            dateUpdate = "TODO FECHA"
         )
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -137,7 +130,7 @@ class AddEditProfile : AppCompatActivity() {
 
             userDao.insertUser(user)
             finish()
-            println("tras el delete: ${userDao.getAll()}, size: ${userDao.getAll().size}")
+            //println("tras el delete: ${userDao.getAll()}, size: ${userDao.getAll().size}")
         }
         //Toast.makeText(this, "Usuario agregado", Toast.LENGTH_SHORT).show()
     }
@@ -146,7 +139,7 @@ class AddEditProfile : AppCompatActivity() {
      * Este metodo se encarga de validar los campos del perfil.
      * @return true si los campos son correctos, false si no lo son (faltan valores).
      */
-    private fun validateFields() : Boolean {
+     fun validateFields() : Boolean {
         return (
                 //etName.text.toString().isNotBlank() &&
                         etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
@@ -162,20 +155,5 @@ class AddEditProfile : AppCompatActivity() {
                 )
     }
 
-
-    /**
-     * Este metodo se encarga de calcular el BMR (Basal Metabolic Rate) del usuario.
-     * @param age la edad del usuario.
-     * @param gender el genero del usuario.
-     * @param height la altura del usuario.
-     * @param weight el peso del usuario.
-     * @return el BMR del usuario formateado a Int.
-     */
-    private fun calculateBMR (age: Int, gender: Gender, height: Int, weight: Int) : Int {
-        return if (gender == Gender.MALE)
-            ((10 * weight) + (6.25 * height) - (5 * age) + 5).toInt()
-        else
-            ((10 * weight) + (6.25 * height) - (5 * age) - 161).toInt()
-    }
 
 }

@@ -6,8 +6,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.appcalorias.databinding.UserOptionsDialogBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.User
-import com.squareup.picasso.Picasso
+import com.example.appcalorias.db.model.user.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
