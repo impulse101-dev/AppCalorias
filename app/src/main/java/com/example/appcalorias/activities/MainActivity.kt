@@ -16,6 +16,10 @@ import com.example.appcalorias.api.ollama.ApiUtilities
 import com.example.appcalorias.api.ollama.response.post.foodProperties.FoodPropertiesManager
 import com.example.appcalorias.api.ollama.config.ConfigLoader
 import com.example.appcalorias.databinding.ActivityMainBinding
+import com.example.appcalorias.db.AppCaloriesDB
+import com.example.appcalorias.db.DatabaseProvider
+import com.example.appcalorias.db.model.Record
+import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
 import com.example.appcalorias.image.ImagePickerManager
 import kotlinx.coroutines.CoroutineScope
@@ -36,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     private var hasImage: Boolean = false
     private lateinit var imagePicker : ImagePickerManager
 
+    private var user : User? = null
+    private lateinit var room : AppCaloriesDB
+
     private var runningModel : Boolean = false
 
 
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         setSupportActionBar(b.toolBar)
-        supportActionBar?.title = "Calories Estimator"          //todo haz un ToolBarManager para no estar repitiendo el codigo
+        supportActionBar?.title = "Calories Estimator"
 
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,25 +73,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.miAddProfile -> {
-//                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
-//            }
-
             R.id.miCalendar -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    println("recordsForUser?: ${room.getRecordDAO().getRecordsByUserId(user!!.id)}")
+                }
+
+                val intent = Intent(this, RecordListActivity::class.java)
+                intent.putExtra(User.PREFS_USER_ID, user)
+                startActivity(intent)
+                //finish()
 
             }
 
             R.id.miProfile -> {
-                Intent(this, AddEditProfile::class.java).also{ startActivity(it) }
+                Intent(this, AddEditProfileActivity::class.java).also{ startActivity(it) }
             }
         }
         return true
     }
 
     private fun initProperties () {
-//        UserSession.initialize(this)
-//        Log.d("UsserSession1", "${UserSession.getUser}")
+        room = DatabaseProvider.getDatabase(this)
+        user = intent.getSerializableExtra(User.PREFS_USER_ID, User::class.java)        //cambiado el minSdkVersion a 33 para poder usar el nuevo metodo de Serializable
         imagePicker = ImagePickerManager(this, autoLoadInto = ivPhoto)
+
+        //println("Main, tras iniciar properties - user: $user")
 
         initActionListeners()
     }
@@ -109,20 +122,13 @@ class MainActivity : AppCompatActivity() {
 
             } else if (runningModel) {
                 Toast.makeText(this, "Una peticion ya se esta ejecutando", Toast.LENGTH_SHORT).show()
+
+            } else if (user == null) {
+                Toast.makeText(this, "ERROR, NO HAY USUARIOS", Toast.LENGTH_SHORT).show()
+
             } else {
 
                 Toast.makeText(this, "Procesando imagen...", Toast.LENGTH_SHORT).show()
-
-                /*
-               todo
-                2.- Hacer que mientras cargue la respuesta de la api, que salga un loading
-                3.- Poner la vista mas bonita
-                5.- Documentar las clases cuando termines de hacer el to do
-                6.- Esto a lo mejor es mucho, pero estaria bien hacer una base de datos con sqlite para guardar las calorias que se van consumiendo (hacer extremadamente sencilla)
-                para el apartado 6, necesitaria entonces hacer su vista... siendo asi bastante mas trabajo... pero bueno    HACER CON ROOM (VIDEO DIEGO MOODLE)
-                7.- Al no subir una foto, en lugar de usar el Toast, poner algo que sea mas bonico
-             */
-
 
                 CoroutineScope(Dispatchers.IO).launch {
 
@@ -135,8 +141,25 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         if (call.isSuccessful) {
 
+                            val foodProperties = FoodPropertiesManager(
+                                call.body()!!
+                            ).getFoodProperties()
+
                             FoodPropertiesDialog(
-                                FoodPropertiesManager(call.body()!!).getFoodProperties()
+                                foodProperties,
+                                onFoodPropertiesAccepted = {
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        room.getRecordDAO().insertRecord(
+                                            Record(
+                                                calories = foodProperties.calories.toFloat(),
+                                                carbohydrates = foodProperties.carbohydrates.toInt(),
+                                                proteins = foodProperties.protein.toInt(),
+                                                fats = foodProperties.fat.toInt(),
+                                                idUser = user!!.id
+                                            )
+                                        )
+                                    }
+                                }
                             ).show(
                                 (b.root.context as AppCompatActivity).supportFragmentManager,
                                 "FoodPropertiesDialog"

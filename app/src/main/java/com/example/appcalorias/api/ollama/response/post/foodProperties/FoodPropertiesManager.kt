@@ -22,7 +22,6 @@ class FoodPropertiesManager(postResponse : PostResponse) {
         val jsonElement = JsonParser.parseString(response)
         val jsonObject = jsonElement.asJsonObject
 
-        Log.d("antes", response)
 
         val calories = getPropertyOrDefault(jsonObject, "calories")
         val carbohydrates = getPropertyOrDefault(jsonObject, "carbohydrates")
@@ -67,9 +66,9 @@ class FoodPropertiesManager(postResponse : PostResponse) {
         var totalCalories = foodProperties.calories.toFloat()
         if (totalCalories <= 0) {
             totalCalories = ((foodProperties.carbohydrates.toFloat() * 4) + (foodProperties.protein.toFloat() * 4) + (foodProperties.fat.toFloat() * 9))
-            Log.d("despues", totalCalories.toString())
+            Log.d("caloriesRawValue", "calories: $totalCalories")
             return FoodProperties(
-                calories = (totalCalories.toString()),
+                calories = String.format("%.1f", totalCalories),
                 carbohydrates = foodProperties.carbohydrates,
                 protein = foodProperties.protein,
                 fat = foodProperties.fat

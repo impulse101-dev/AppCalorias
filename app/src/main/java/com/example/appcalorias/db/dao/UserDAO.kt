@@ -4,21 +4,27 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.appcalorias.db.model.user.User
+//import androidx.room.Transaction
+import com.example.appcalorias.db.model.User
 
 @Dao
 interface UserDAO {
     @Query("SELECT * FROM User")
     suspend fun getAllUsers() : List<User>
 
+    @Query("SELECT * FROM User WHERE id = :userId")
+    suspend fun getUserById(userId: Int) : User?
+
+    @Query("SELECT * FROM User ORDER BY id DESC LIMIT 1")
+    suspend fun getLastUser() : User?
+
+//    @Transaction
 //    @Query("SELECT * FROM User WHERE id = :userId")
-//    suspend fun getUserById(userId: Int) : User?
+//    suspend fun getUserWithRecords(userId: Int) : UserWithRecords
+
 
     @Insert
     suspend fun insertUser(user : User)
-
-//    @Update
-//    suspend fun updateUser(user: User)
 
     @Delete
     /**

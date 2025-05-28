@@ -1,9 +1,9 @@
-package com.example.appcalorias.db.model.record
+package com.example.appcalorias.db.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.appcalorias.db.model.user.User
+import com.example.appcalorias.db.model.res.DateUpdate
 
 @Entity(
     foreignKeys = [
@@ -17,6 +17,7 @@ import com.example.appcalorias.db.model.user.User
 data class Record(
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
+    val date: String = DateUpdate.currentDate,
     val calories : Float,        //REAL
     val carbohydrates : Int,
     val proteins : Int,

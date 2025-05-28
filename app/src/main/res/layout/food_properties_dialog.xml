@@ -9,61 +9,135 @@
     tools:context=".activities.FoodPropertiesDialog">
 
 
-    <!--    <ImageView-->
-<!--        android:id="@+id/iv_foodPhoto"-->
-<!--        android:layout_width="200dp"-->
-<!--        android:layout_height="200dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.131"-->
-<!--        tools:background="@drawable/sandia_rosa"-->
-<!--        />-->
-
-    <TextView
-        android:id="@+id/calories"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayoutHorizontalFoodProperties"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/calories"
-        android:textSize="30sp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/carbohydrates"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/calories"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvCarbohydrates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:text="@string/carbohydrates"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvProteins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:text="@string/proteins"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvFats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:text="@string/fats"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCaloriesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="24sp"
+                tools:text="1500 kcal" />
+
+            <TextView
+                android:id="@+id/tvCarbohydratesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textSize="18sp"
+                tools:text="20 g" />
+
+            <TextView
+                android:id="@+id/tvProteinsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textSize="18sp"
+                tools:text="12 g" />
+
+            <TextView
+                android:id="@+id/tvFatsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:textSize="18sp"
+                tools:text="10 g" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:layout_marginTop="30sp"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/carbohydrates"
-        android:textSize="20sp"
-        android:layout_marginTop="5sp"
-        app:layout_constraintStart_toStartOf="@+id/calories"
-        app:layout_constraintTop_toBottomOf="@+id/calories" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutHorizontalFoodProperties"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutHorizontalFoodProperties"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHorizontalFoodProperties">
 
-    <TextView
-        android:id="@+id/proteins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/proteins"
-        android:layout_marginTop="5sp"
-        app:layout_constraintStart_toStartOf="@+id/carbohydrates"
-        app:layout_constraintTop_toBottomOf="@id/carbohydrates" />
 
-    <TextView
-        android:id="@+id/fats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fats"
-        android:textSize="20sp"
-        android:layout_marginTop="5sp"
-        app:layout_constraintStart_toStartOf="@+id/proteins"
-        app:layout_constraintTop_toBottomOf="@id/proteins"
-        />
+        <Button
+            android:id="@+id/btAceptarFoodProperties"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:textColor="@color/lightBlack"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4sp"
+            android:textSize="18sp"
+            android:text="@string/bt_accept" />
+
+
+        <Button
+            android:id="@+id/btCancelFoodProperties"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textSize="18sp"
+            android:textColor="@color/lightBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4sp"
+            android:text="@string/bt_cancel" />
+
+    </LinearLayout>
+
+
 
 
 

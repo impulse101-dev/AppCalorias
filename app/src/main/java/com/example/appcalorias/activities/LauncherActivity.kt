@@ -2,7 +2,6 @@ package com.example.appcalorias.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,8 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.databinding.ActivityAddEditProfileBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.user.res.Gender
-import com.example.appcalorias.db.model.user.User
+import com.example.appcalorias.db.model.res.Gender
+import com.example.appcalorias.db.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -29,6 +28,10 @@ class LauncherActivity : AppCompatActivity() {
     private lateinit var b : ActivityAddEditProfileBinding
     private val scope = CoroutineScope(Dispatchers.Main)
     private lateinit var room : AppCaloriesDB
+
+    private var user : User? = null
+
+    //private val prefsManager : PreferencesManager = PreferencesManager.getInstance(this)
 
     private val ivInsertUser : ImageView by lazy { b.ivUpdateProfile }
 
@@ -50,26 +53,31 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun initProperties () {
         room = DatabaseProvider.getDatabase(this)
+
         scope.launch {
-            val users = room.getUserDAO().getAllUsers()
-
-            Log.d("initUsuarios", "$users")
-
-            if (users.isNotEmpty()) {
-                changeActivity()
-            } else {
-                //no quiero que la gente le de a agregar perfil mientras carga esto (no podran al agregar una pantalla de carga)
+            user = User.getLastUser(applicationContext)
+            println("user in launcher: $user")
+            if (user == null) {
                 ivInsertUser.setOnClickListener {
                     addProfile()
                 }
+            } else {
+                changeActivity(user!!)   //user no sera nulo al pasar el if()
             }
+
         }
     }
 
-    private fun changeActivity () {
-        startActivity(
-            Intent(this@LauncherActivity, MainActivity::class.java).also { finish() }
-        )
+    /**
+     * Actividad que se encarga de pasar a la actividad principal.
+     * Se pide el usuario para que no se pueda pasar un valor nulo en el id de este.
+     * @param user Usuario no nulo a pasar a la siguiente actividad.
+     */
+    private fun changeActivity (user: User) {
+        val intent = Intent(this@LauncherActivity, MainActivity::class.java)
+        intent.putExtra(User.PREFS_USER_ID, user)
+        startActivity(intent)
+        finish()
     }
 
 
@@ -100,10 +108,8 @@ class LauncherActivity : AppCompatActivity() {
             val userDao = room.getUserDAO()
 
             userDao.insertUser(user)
-            changeActivity()
-            //println("tras el delete: ${userDao.getAll()}, size: ${userDao.getAll().size}")
+            changeActivity(user)
         }
-        //Toast.makeText(this, "Usuario agregado", Toast.LENGTH_SHORT).show()
     }
 
 
@@ -111,7 +117,7 @@ class LauncherActivity : AppCompatActivity() {
      * Este metodo se encarga de validar los campos del perfil.
      * @return true si los campos son correctos, false si no lo son (faltan valores).
      */
-    private fun validateFields() : Boolean {    //todo estas repitiendo codigo aqui... Es para avanzar rapido por ahora
+    private fun validateFields() : Boolean {    //todo estas repitiendo codigo aqui
         return (
                 b.etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
                         b.etAge.text.toString().toInt() > 0 &&

@@ -1,9 +1,12 @@
-package com.example.appcalorias.db.model.user
+package com.example.appcalorias.db.model
 
+import android.content.Context
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.appcalorias.db.model.user.res.DateUpdate
-import com.example.appcalorias.db.model.user.res.Gender
+import com.example.appcalorias.db.DatabaseProvider
+import com.example.appcalorias.db.model.res.DateUpdate
+import com.example.appcalorias.db.model.res.Gender
+import java.io.Serializable
 
 @Entity
 class User(
@@ -14,7 +17,9 @@ class User(
     val weight: Int,   //el peso puede variar (es literalmente el objetivo del proyecto...)
     val gender: Gender,
     val height: Int,
-) {
+)
+    : Serializable
+{
 
     /**
      * Basal Metabolic Rate (BMR) del usuario.
@@ -23,6 +28,17 @@ class User(
     var bmr: Int = calculateBMR(age, gender, height, weight)
 
 
+    companion object {
+        /**
+         * Metodo que se encarga de devolver el utlimo usuario de la base de datos (la ultima modificacion de este).
+         * @param context el contexto de la aplicacion.
+         * @return el ultimo usuario de la base de datos o null si no hay usuarios.
+         */
+        suspend fun getLastUser(context: Context): User? {
+            return DatabaseProvider.getDatabase(context).getUserDAO().getLastUser()
+        }
+        const val PREFS_USER_ID = "PREFS_USER"
+    }
 
     /**
      * Este metodo se encarga de calcular el BMR (Basal Metabolic Rate) del usuario.
@@ -42,4 +58,5 @@ class User(
     override fun toString(): String {
         return "User(id=$id, dateUpdate='$dateUpdate', age=$age, weight=$weight, gender=$gender, height=$height, bmr=$bmr)"
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.appcalorias.db.model.user.res
+package com.example.appcalorias.db.model.res
 
 /**
  * Enum para expresar el genero del usuario.

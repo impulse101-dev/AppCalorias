@@ -6,11 +6,11 @@ import androidx.fragment.app.DialogFragment
 import com.example.appcalorias.databinding.UserOptionsDialogBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.user.User
+import com.example.appcalorias.db.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+//todo commit Deleted unused activities (UserOptionsDialog)
 class UserOptionsDialog(private val user: User, private val onUserDeleted: (() -> Unit)? = null)
     : DialogFragment() {
 

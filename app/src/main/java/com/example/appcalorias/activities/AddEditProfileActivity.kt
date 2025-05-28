@@ -14,8 +14,8 @@ import com.example.appcalorias.R
 import com.example.appcalorias.databinding.ActivityAddEditProfileBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
-import com.example.appcalorias.db.model.user.res.Gender
-import com.example.appcalorias.db.model.user.User
+import com.example.appcalorias.db.model.res.Gender
+import com.example.appcalorias.db.model.User
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 /**
  * Actividad encargada de modificar el perfil del usuario
  */
-class AddEditProfile : AppCompatActivity() {
+class AddEditProfileActivity : AppCompatActivity() {
 
 
     private lateinit var b : ActivityAddEditProfileBinding

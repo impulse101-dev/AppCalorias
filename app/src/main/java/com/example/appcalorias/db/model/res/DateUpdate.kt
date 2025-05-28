@@ -1,8 +1,7 @@
-package com.example.appcalorias.db.model.user.res
+package com.example.appcalorias.db.model.res
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 /**
  * Objeto que se encarga de dar devolver la hora y fecha de la ultima actualizacion del usuario.

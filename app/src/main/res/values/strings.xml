@@ -22,4 +22,6 @@
     <string name="bt_SelectUser">Seleccionar</string>
     <string name="bt_EditUser">Modificar</string>
     <string name="bt_DeleteUser">Borrar</string>
+    <string name="bt_accept">Aceptar</string>
+    <string name="bt_cancel">Cancelar</string>
 </resources>
