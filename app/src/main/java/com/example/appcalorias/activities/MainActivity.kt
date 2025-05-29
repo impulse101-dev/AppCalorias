@@ -1,6 +1,5 @@
 package com.example.appcalorias.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -11,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.appcalorias.R
+import com.example.appcalorias.activities.res.toolbar.ToolbarManager
 import com.example.appcalorias.api.ollama.ApiUtilities
 import com.example.appcalorias.api.ollama.response.post.foodProperties.FoodPropertiesManager
 import com.example.appcalorias.api.ollama.config.ConfigLoader
@@ -22,6 +21,7 @@ import com.example.appcalorias.db.model.Record
 import com.example.appcalorias.db.model.User
 import com.example.appcalorias.image.ImageConverter
 import com.example.appcalorias.image.ImagePickerManager
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var b: ActivityMainBinding
 
     private val ivSendRequest: ImageView by lazy { b.ivSendPetition }
-    private val ivPhoto: ImageView by lazy { b.ivPhoto }
 
 
     /**
@@ -45,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
     private var runningModel : Boolean = false
 
+    private lateinit var toolbarManager : ToolbarManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
-        setSupportActionBar(b.toolBar)
         supportActionBar?.title = "Calories Estimator"
 
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
@@ -67,35 +67,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.custom_main_toolbar, menu)
-        return true
+        return toolbarManager.createMenu(menu)
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.miCalendar -> {
-                CoroutineScope(Dispatchers.IO).launch {
-                    println("recordsForUser?: ${room.getRecordDAO().getRecordsByUserId(user!!.id)}")
-                }
-
-                val intent = Intent(this, RecordListActivity::class.java)
-                intent.putExtra(User.PREFS_USER_ID, user)
-                startActivity(intent)
-                //finish()
-
-            }
-
-            R.id.miProfile -> {
-                Intent(this, AddEditProfileActivity::class.java).also{ startActivity(it) }
-            }
-        }
-        return true
+        return toolbarManager.handleItemClick(item)
     }
 
     private fun initProperties () {
+        Picasso.
+        get().
+        load("https://cdn.pixabay.com/photo/2021/02/08/12/40/lasagna-5994612_960_720.jpg").
+        fit().
+        centerCrop().
+        into(b.ivPhoto)
+
         room = DatabaseProvider.getDatabase(this)
         user = intent.getSerializableExtra(User.PREFS_USER_ID, User::class.java)        //cambiado el minSdkVersion a 33 para poder usar el nuevo metodo de Serializable
-        imagePicker = ImagePickerManager(this, autoLoadInto = ivPhoto)
+        toolbarManager = ToolbarManager(this, b.toolBar, user)
+        toolbarManager.setup()
+        imagePicker = ImagePickerManager(this, autoLoadInto = b.ivPhoto)
 
         //println("Main, tras iniciar properties - user: $user")
 
@@ -106,7 +98,7 @@ class MainActivity : AppCompatActivity() {
      * Inicializa los listeners de los botones.
      */
     private fun initActionListeners() {
-        ivPhoto.setOnClickListener {
+        b.btGalery.setOnClickListener {
             imagePicker.pickImage()
         }
 
@@ -135,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                     runningModel = true
 
                     val call = ApiUtilities.postPrompt(
-                        ImageConverter.convertImageToBase64(ivPhoto.drawable)
+                        ImageConverter.convertImageToBase64(b.ivPhoto.drawable)
                     )
 
                     runOnUiThread {

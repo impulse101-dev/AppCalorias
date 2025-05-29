@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.R
+import com.example.appcalorias.activities.res.toolbar.ToolbarManager
 import com.example.appcalorias.databinding.ActivityAddEditProfileBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
@@ -32,14 +33,10 @@ class AddEditProfileActivity : AppCompatActivity() {
 
     private lateinit var b : ActivityAddEditProfileBinding
 
-    private val chipMale : Chip by lazy { b.chipMale }
-    private val chipFemale : Chip by lazy { b.chipFemale }
-    private val etAge : EditText by lazy { b.etAge }
-    private val etHeight : EditText by lazy { b.etHeight }
-    private val etWeight : EditText by lazy { b.etWeight }
-    private val ivUpdateProfile : ImageView by lazy { b.ivUpdateProfile }
 
     private lateinit var room : AppCaloriesDB
+    private var user : User? = null
+    private lateinit var toolbarManager: ToolbarManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,40 +56,29 @@ class AddEditProfileActivity : AppCompatActivity() {
     }
 
     private fun initProperties () {
-        b.toolBar.setTitle("Editar perfil")
-        setSupportActionBar(b.toolBar)
-
+        user = intent.getSerializableExtra(User.PREFS_USER_ID, User::class.java)
         room = DatabaseProvider.getDatabase(this)
-//        userImagePicker = ImagePickerManager(
-//            this,
-//            ivUserPhoto
-//        )
+        toolbarManager = ToolbarManager(this, b.toolBar, user)
+        toolbarManager.setup()
+        if (user != null) {
+            setActualUserProperties(user!!)
+        }   //si no hay usuario que no ponga los hints
         initActionListeners()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.custom_main_toolbar, menu)
-        return true
+        return toolbarManager.createMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.miProfile -> {
-                Toast.makeText(this, "Ya estas en esta pantalla", Toast.LENGTH_SHORT).show()
-            }
-
-            R.id.miCalendar -> {
-
-            }
-        }
-        return true
+        return toolbarManager.handleItemClick(item)
     }
 
     private fun initActionListeners () {
 
-        ivUpdateProfile.setOnClickListener {
+        b.ivUpdateProfile.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                //todo AQUI ACTUALIZA EL PERFIL QUE YA EXISTE MY NAME!!!
+                addProfile()
             }
 
         }
@@ -110,10 +96,10 @@ class AddEditProfileActivity : AppCompatActivity() {
             return
         }
 
-        val age = etAge.text.toString().toInt()
-        val height = etHeight.text.toString().toInt()
-        val weight = etWeight.text.toString().toInt()
-        val gender = if (chipMale.isChecked) Gender.MALE else Gender.FEMALE   //uno de los 2 chips ha de ser seleccionado para llegar aqui
+        val age = b.etAge.text.toString().toInt()
+        val height = b.etHeight.text.toString().toInt()
+        val weight = b.etWeight.text.toString().toInt()
+        val gender = if (b.chipMale.isChecked) Gender.MALE else Gender.FEMALE   //uno de los 2 chips ha de ser seleccionado para llegar aqui
 
         val user = User(
             age = age,
@@ -124,6 +110,8 @@ class AddEditProfileActivity : AppCompatActivity() {
             //image = "",
             dateUpdate = "TODO FECHA"
         )
+
+        this.user = user
 
         CoroutineScope(Dispatchers.IO).launch {
             val userDao = room.getUserDAO()
@@ -142,17 +130,24 @@ class AddEditProfileActivity : AppCompatActivity() {
      fun validateFields() : Boolean {
         return (
                 //etName.text.toString().isNotBlank() &&
-                        etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
-                        etAge.text.toString().toInt() > 0 &&
-                        etAge.text.toString().toInt() < 140 &&
-                        (chipMale.isChecked || chipFemale.isChecked) &&
-                        etHeight.text.toString().isNotBlank() &&
-                        etHeight.text.toString().toInt() > 0 &&
-                        etHeight.text.toString().toInt() < 300 &&
-                        etWeight.text.toString().isNotBlank() &&
-                        etWeight.text.toString().toInt() > 0 &&
-                        etWeight.text.toString().toInt() < 500
+                        b.etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
+                        b.etAge.text.toString().toInt() > 0 &&
+                        b.etAge.text.toString().toInt() < 140 &&
+                        (b.chipMale.isChecked || b.chipFemale.isChecked) &&
+                        b.etHeight.text.toString().isNotBlank() &&
+                        b.etHeight.text.toString().toInt() > 0 &&
+                        b.etHeight.text.toString().toInt() < 300 &&
+                        b.etWeight.text.toString().isNotBlank() &&
+                        b.etWeight.text.toString().toInt() > 0 &&
+                        b.etWeight.text.toString().toInt() < 500
                 )
+    }
+
+    private fun setActualUserProperties (user : User) {
+        b.etAge.hint = user.age.toString()
+        b.etWeight.hint = user.weight.toString()
+        b.etHeight.hint = user.height.toString()
+        if (user.gender == Gender.MALE) b.chipMale.isChecked = true else {b.chipFemale.isChecked = true}
     }
 
 

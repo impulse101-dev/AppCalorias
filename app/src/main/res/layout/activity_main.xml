@@ -12,7 +12,6 @@
         android:id="@+id/ivPhoto"
         android:layout_width="300sp"
         android:layout_height="300sp"
-        android:src="@drawable/resultado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -23,13 +22,27 @@
 
     <ImageView
         android:id="@+id/ivSendPetition"
-        android:layout_width="120sp"
-        android:layout_height="120sp"
-        android:layout_marginTop="100sp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
         android:background="@drawable/ic_play_foreground"
         app:layout_constraintEnd_toEndOf="@+id/ivPhoto"
         app:layout_constraintStart_toStartOf="@+id/ivPhoto"
         app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />
+
+
+    <Button
+        android:id="@+id/btGalery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_galery"
+        android:layout_marginTop="45sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginStart="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/ivSendPetition"
+        app:layout_constraintStart_toStartOf="@+id/ivSendPetition"
+        app:layout_constraintTop_toBottomOf="@+id/ivSendPetition"
+        tools:background="@color/lightBlack" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"

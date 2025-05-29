@@ -1,4 +1,4 @@
-package com.example.appcalorias.activities.recyclerview
+package com.example.appcalorias.activities.res.recyclerview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +31,10 @@ class RecordAdapter (private var records: List<Record>, private val fn : ((Recor
             fun bind (record : Record) {
 
                 b.tvRecordDate.text = record.date
-                b.tvRecordCalories.text = record.calories.toString()
-                b.tvUserBMRValue.text = "tontopollas"
+                b.tvRecordCalories.text = record.calories.toString().plus(" kcal")
+                b.tvRecordCarbohydrates.text = record.carbohydrates.toString().plus(" g")
+                b.tvRecordProteins.text = record.proteins.toString().plus(" g")
+                b.tvRecordFats.text = record.fats.toString().plus(" g")
 
                 itemView.setOnClickListener { fn?.invoke(record) }
             }

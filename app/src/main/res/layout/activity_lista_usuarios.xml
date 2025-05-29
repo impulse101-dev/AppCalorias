@@ -17,8 +17,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <LinearLayout
+        android:id="@+id/linearLayoutSpinners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8sp">
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+
+
+    </LinearLayout>
+
+
+
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUserList"
+        android:id="@+id/rvRecordsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
