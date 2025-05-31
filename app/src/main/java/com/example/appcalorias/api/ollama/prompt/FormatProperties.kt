@@ -2,7 +2,10 @@ package com.example.appcalorias.api.ollama.prompt
 
 /**
  * Data class la cual representa el formato de las propiedades.
- * En la version de ollama ()
+ * @property calories las calorias de la comida
+ * @property carbohydrates los carbohidratos de la comida
+ * @property proteins las proteinas de la comida
+ * @property sugars los azucares de la comida (dado a que el modelo llama3.2-vision no era capaz de detectar las grasas)
  * @author Adrian Salazar Escoriza
  */
 data class FormatProperties(

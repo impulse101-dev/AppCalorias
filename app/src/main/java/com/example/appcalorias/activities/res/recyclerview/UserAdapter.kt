@@ -9,6 +9,12 @@ import com.example.appcalorias.databinding.ItemUserBinding
 import com.example.appcalorias.db.model.User
 import com.example.appcalorias.db.model.res.Gender
 
+/**
+ * Adaptador para mostrar los usuarios en un RecyclerView.
+ * @param records Lista de usuarios a mostrar.
+ * @param fn Función opcional que se ejecuta al hacer clic en un usuario.
+ * @author Adrian Salazar Escoriza
+ */
 class UserAdapter (private var records: List<User>, private val fn : ((User) -> Unit)? = null)
     : RecyclerView.Adapter<UserAdapter.UserViewHolder>()
 {
@@ -25,10 +31,19 @@ class UserAdapter (private var records: List<User>, private val fn : ((User) -> 
     override fun getItemCount(): Int = records.size
 
 
+    /**
+     * ViewHolder para los usuarios.
+     * @param view Vista del elemento del RecyclerView.
+     * @author
+     */
     inner class UserViewHolder (view : View) : RecyclerView.ViewHolder (view) {
 
         private val b = ItemUserBinding.bind(view)
 
+        /**
+         * Asocia los datos del usuario a la vista.
+         * @param user Usuario a mostrar.
+         */
         fun bind (user : User) {
 
             b.tvUserId.text = user.id.toString()

@@ -10,6 +10,7 @@ import com.example.appcalorias.databinding.DialogLoadingBinding
 
 /**
  * DialogFragment que muestra un dialogo de carga.
+ * @author Adrian Salazar Escoriza
  */
 class LoadingDialog : DialogFragment() {
 

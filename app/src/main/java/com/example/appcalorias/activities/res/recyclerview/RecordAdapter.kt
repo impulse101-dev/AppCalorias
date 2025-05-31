@@ -9,6 +9,13 @@ import com.example.appcalorias.R
 import com.example.appcalorias.databinding.ItemRecordBinding
 import com.example.appcalorias.db.model.Record
 
+/**
+ * Adaptador para mostrar los registros de calorías en un RecyclerView.
+ * @param records Lista de registros a mostrar.
+ * @param fn Función opcional que se ejecuta al hacer clic en un registro.
+ * @property recordsToDelete Lista de registros seleccionados para eliminar(acceder mediante el getter).
+ * @author Adrian Salazar Escoriza
+ */
 class RecordAdapter(private var records: List<Record>, private val fn: ((Record) -> Unit)? = null) :
     RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
 
@@ -36,10 +43,19 @@ class RecordAdapter(private var records: List<Record>, private val fn: ((Record)
     }
 
 
+    /**
+     * ViewHolder para los registros de calorías.
+     * @param view Vista del elemento del RecyclerView.
+     * @author Adrian Salazar Escoriza
+     */
     inner class RecordViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         private val b = ItemRecordBinding.bind(view)
 
+        /**
+         * Asocia los datos del registro a la vista.
+         * @param record Registro de calorías a mostrar.
+         */
         fun bind(record: Record) {
             b.tvRecordDate.text = record.date
             b.tvCaloriesValue.text = record.calories.toString().plus(" kcal")

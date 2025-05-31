@@ -30,6 +30,10 @@ import kotlinx.coroutines.withContext
 
 /**
  * Actividad encargada de modificar el perfil del usuario
+ * @property room Singleton para el acceso a la base de datos.
+ * @property user Usuario con el que se muestran los hints de los campos.
+ * @property toolbarManager Encargado de gestionar la toolbar de la actividad.
+ * @author Adrian Salazar Escoriza
  */
 class AddEditProfileActivity : AppCompatActivity() {
 
@@ -56,6 +60,9 @@ class AddEditProfileActivity : AppCompatActivity() {
         initProperties()
     }
 
+    /**
+     * Inicializa las propiedades de la actividad.
+     */
     private fun initProperties() {
         toolbarManager = ToolbarManager(this, b.toolBar)
         room = DatabaseProvider.getDatabase(this)
@@ -68,7 +75,6 @@ class AddEditProfileActivity : AppCompatActivity() {
                 }   //si no hay usuario que no ponga los hints
             }
         }
-        //user = intent.getSerializableExtra(User.PREFS_USER_ID, User::class.java)
 
         initActionListeners()
     }
@@ -81,13 +87,14 @@ class AddEditProfileActivity : AppCompatActivity() {
         return toolbarManager.handleItemClick(item)
     }
 
+    /**
+     * Inicializa los listeners de los botones de la actividad.
+     */
     private fun initActionListeners() {
-
         b.btnUpdateProfile.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 addProfile()
             }
-
         }
     }
 
@@ -166,6 +173,10 @@ class AddEditProfileActivity : AppCompatActivity() {
                 )
     }
 
+    /**
+     * Este metodo se encarga de establecer los valores actuales del usuario en los campos de la vista.
+     * @param user Usuario del que se quieren establecer los valores.
+     */
     private fun setActualUserProperties(user: User) {
         b.etAge.hint = user.age.toString()
         b.etWeight.hint = user.weight.toString()

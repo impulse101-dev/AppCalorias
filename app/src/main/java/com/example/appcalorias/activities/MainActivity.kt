@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -30,12 +29,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
+/**
+ * Actividad principal de la aplicacion.
+ * En esta, el usuario puede seleccionar una imagen de su galeria y enviarla a la API de Ollama.
+ * Entonces se devuelve una respuesta con una estimacion de las propiedades nutricionales del alimento (imagen).
+ * El usuario puede aceptar o rechazar las propiedades nutricionales. En caso de aceptarlas, se guardaran como
+ * un nuevo registro en la base de datos.
+ *
+ * @property hasImage Variable que indica si el usuario ha seleccionado una imagen.
+ * @property user Usuario actual de la aplicacion.
+ * @property room Singleton para acceso a la base de datos.
+ * @property runningModel Variable que indica si se esta ejecutando una peticion a la API.
+ * @property toolbarManager Encargado de gestionar la toolbar de la actividad.
+ * @property pickMedia Registro de la actividad para seleccionar una imagen de la galeria del dispositivo.
+ * Vease https://developer.android.com/training/data-storage/shared/photopicker?hl=es-419
+ * @author Adrian Salazar Escoriza
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
-
-    private val ivSendRequest: ImageView by lazy { b.ivSendPetition }
-
 
     /**
      * Variable que indica si el usuario ha seleccionado alguna imagen
@@ -97,6 +109,9 @@ class MainActivity : AppCompatActivity() {
         return toolbarManager.handleItemClick(item)
     }
 
+    /**
+     * Inicializa las propiedades necesarias para la actividad.
+     */
     private fun initProperties () {
         Picasso.
         get().
@@ -123,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        ivSendRequest.setOnClickListener {
+        b.ivSendPetition.setOnClickListener {
 
             println("Usuario en el main: $user")
             CoroutineScope(Dispatchers.Main).launch {

@@ -4,31 +4,25 @@ import android.content.Context
 import com.example.appcalorias.R
 import com.example.appcalorias.exceptions.BadPropertyException
 
+/**
+ * Singleton que se encarga de cargar las propiedades de la api desde el archivo properties.conf
+ * @property ip la ip del servidor de la api
+ * @property port el puerto del servidor de la api
+ * @property model el modelo de IA que se va a utilizar
+ * @property imageMaxResolution la resolucion maxima que se enviara a la IA
+ * @property basePrompt el prompt base que se enviara a la IA
+ * @property requiredProperties las propiedades requeridas en la respuesta de la IA
+ * @property formatType el formato de la imagen que se enviara a la IA
+ */
 object ConfigLoader {
 
     private lateinit var ip: String
     private lateinit var port: String
 
-    /**
-     * Modelo de IA que se va a utilizar.
-     */
     private lateinit var model: String
-    /**
-     * La resolucion maxima que la IA procesara.
-     * A mayor resolucion, mayor precision, pero mayor tiempo de espera.
-     */
     private lateinit var imageMaxResolution : String
-
-    /**
-     * Peticiones de /api/generate
-     */
     private lateinit var basePrompt : String
-
-    /**
-     * Propiedades obligatorias en la respuesta de la ia
-     */
     private lateinit var requiredProperties : List<String>
-
     private lateinit var formatType : String
 
 
@@ -58,33 +52,53 @@ object ConfigLoader {
         formatType = values["formatType"] ?: throw BadPropertyException("No se ha encontrado el formato de la imagen")
     }
 
+    /**
+     * Getter del modelo de IA.
+     */
     fun getModel(): String {
         return model
     }
 
+    /**
+     * Getter de la IP.
+     */
     fun getIp(): String {
         return ip
     }
 
+    /**
+     * Getter del puerto.
+     */
     fun getPort(): String {
         return port
     }
 
+    /**
+     * Getter de la resolucion maxima de la imagen.
+     */
     fun getImageMaxResolution(): Int {
         return imageMaxResolution.toInt()
     }
 
+    /**
+     * Getter del prompt base.
+     */
     fun getBasePrompt(): String {
         return basePrompt
     }
 
+    /**
+     * Getter del tipo de formato de la imagen.
+     */
     fun getFormatType(): String {
         return formatType
     }
 
+    /**
+     * Getter de las propiedades requeridas.
+     */
     fun getRequiredProperties(): List<String> {
         val trimmedPropeties = requiredProperties.map { it.trim() }
-        //Log.d("trimmedPropeties", trimmedPropeties.toString())
         return trimmedPropeties
     }
 

@@ -23,6 +23,11 @@ import kotlinx.coroutines.launch
  * Actividad que se inicia al abrir la aplicacion.
  * En caso de que sea la primera vez que se ejecuta en el dispositivo, el usuario debe crear un perfil.
  * Si ya existe un perfil, se redirige con dicho perfil a la actividad principal.
+ * @property splashBinding Vista que se muestra mientras se carga la aplicacion.
+ * @property scope Scope de corutinas para manejar operaciones asincronas.
+ * @property room Singleton para el acceso a la base de datos.
+ * @property user Usuario que se carga desde la base de datos si ya existe.
+ * @author Adrian Salazar Escoriza
  */
 class LauncherActivity : AppCompatActivity() {
 
@@ -51,6 +56,9 @@ class LauncherActivity : AppCompatActivity() {
         initProperties()
     }
 
+    /**
+     * Inicializa las propiedades necesarias para la actividad.
+     */
     private fun initProperties () {
         room = DatabaseProvider.getDatabase(this)
 

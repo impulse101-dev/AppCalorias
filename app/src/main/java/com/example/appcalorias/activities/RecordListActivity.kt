@@ -20,7 +20,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
+/**
+ * Actividad que muestra una lista con los registros del usuario que se le pasa por el intent desde
+ * [UserSelectionActivity].
+ * Desde esta se accede a cada uno de los registros guardados en la base de datos. Se pueden borrar
+ * los registros pulsando en el icono de la papelera que aparece al pulsar el boton de guardar en la
+ * esquina inferior derecha. (Esto podria cambiar)
+ *
+ * @see UserSelectionActivity
+ * @property recordAdapter Adaptador para mostrar los registros de usuarios en un RecyclerView.
+ * @property room Singleton para el acceso a la base de datos.
+ * @property user Usuario que se carga desde el intent y se usa para mostrar sus registros.
+ * @property toolbarManager Encargado de gestionar la toolbar de la actividad.
+ * @author Adrian Salazar Escoriza
+ */
 class RecordListActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityRecordsListBinding
@@ -44,6 +57,9 @@ class RecordListActivity : AppCompatActivity() {
         initProperties()
     }
 
+    /**
+     * Inicializa el RecyclerView con la lista de registros.
+     */
     private fun initRecyclerView(recordList: List<Record>) {
         b.rvRecordsList.layoutManager = LinearLayoutManager(this)
         recordAdapter = RecordAdapter(recordList) //{}
@@ -51,6 +67,9 @@ class RecordListActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Carga los registros del usuario desde la base de datos.
+     */
     private fun loadRecords() {
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -67,6 +86,11 @@ class RecordListActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Inicializa las propiedades necesarias para la actividad.
+     * Desde aqui se carga el usuario.
+     */
     private fun initProperties() {
         room = DatabaseProvider.getDatabase(this)
         user = intent.getSerializableExtra("user_prueba", User::class.java)
@@ -76,6 +100,9 @@ class RecordListActivity : AppCompatActivity() {
         initActionListeners()
     }
 
+    /**
+     * Inicializa los listeners de los botones de la actividad.
+     */
     private fun initActionListeners() {
         b.fabSaveChanges.setOnClickListener {
 

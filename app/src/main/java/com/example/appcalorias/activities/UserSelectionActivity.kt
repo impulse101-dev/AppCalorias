@@ -20,6 +20,23 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
+/**
+ * Actividad que permite al usuario ver y gestionar los distintos registros del usuario que se han
+ * agregado a la base de datos.
+ * Esta actividad debe de mostrar siempre un usuario principal, el cual estara estatico en la parte
+ * superior de la pantalla. En caso de que haya mas usuarios, se iran mostrando debajo del usuario principal
+ * mediante un recyclerView.
+ * Un usuario se borra de la base de datos cuando este no tiene registros asociados y no es el usuario
+ * principal.
+ * Vease la actividad que se encarga de mostrar la los registros de un usuario [RecordListActivity]
+ *
+ * @see RecordListActivity
+ * @property userAdapter Adaptador para mostrar los usuarios en un RecyclerView.
+ * @property room Singleton para el acceso a la base de datos.
+ * @property toolbarManager Encargado de gestionar la toolbar de la actividad.
+ * @property mainUser Usuario principal de la aplicacion, que se muestra en la parte superior de la pantalla.
+ */
 class UserSelectionActivity : AppCompatActivity() {
 
     private lateinit var b : ActivityUserSelectionBinding
@@ -52,6 +69,9 @@ class UserSelectionActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    /**
+     * Inicializa las propiedades necesarias para la actividad.
+     */
     private fun initProperties () {
         room = DatabaseProvider.getDatabase(this)
         toolbarManager = ToolbarManager(this, b.toolBar)
@@ -64,7 +84,6 @@ class UserSelectionActivity : AppCompatActivity() {
         }
 
     }
-
 
     /**
      * Bindea el usuario principal. Es necesario para mostrar sus valores. Ya que este
@@ -95,19 +114,29 @@ class UserSelectionActivity : AppCompatActivity() {
         return toolbarManager.createMenu(menu)
     }
 
+    /**
+     * Inicializa el RecyclerView con la lista de usuarios.
+     * @param userList Lista de usuarios a mostrar en el RecyclerView.
+     */
     private fun initRecyclerView (userList: List<User>) {
         b.rvUsersList.layoutManager = LinearLayoutManager(this)
         userAdapter = UserAdapter(userList) { onClickItem(it) }
         b.rvUsersList.adapter = userAdapter
     }
 
+    /**
+     * Metodo que se ejecuta al hacer click en un item del RecyclerView.
+     * @param user Usuario sobre el que se ha hecho click.
+     */
     private fun onClickItem (user: User) {
         val intent = Intent(this, RecordListActivity::class.java)
         intent.putExtra("user_prueba", user)
         startActivity(intent)
     }
 
-
+    /**
+     * Carga los usuarios de la base de datos y los muestra en el RecyclerView.
+     */
     private fun loadUsers() {
         CoroutineScope(Dispatchers.IO).launch {
             var users : List<User>
