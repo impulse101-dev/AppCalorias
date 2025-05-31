@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.Base64
-import android.util.Log
 import com.example.appcalorias.api.ollama.config.ConfigLoader
 import java.io.ByteArrayOutputStream
 import androidx.core.graphics.scale

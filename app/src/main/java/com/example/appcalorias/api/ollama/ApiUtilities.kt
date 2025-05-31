@@ -13,16 +13,6 @@ class ApiUtilities {
     companion object {
 
         /**
-         * Metodo que se encarga de obtener los modelos ejecutandose en la api (TESTING)
-         */
-        suspend fun getRunningModels() =
-            RetrofitClient
-                .retrofit
-                .create(ApiService::class.java)
-                .getResponse("api/ps")
-
-
-        /**
          * Metodo que realiza un POST a la api con el prompt (Metodo principal de la aplicacion)
          * @param image La imagen a enviar.
          */

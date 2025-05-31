@@ -1,13 +1,26 @@
 package com.example.appcalorias.db.model
 
-import android.content.Context
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.appcalorias.db.DatabaseProvider
 import com.example.appcalorias.db.model.res.DateUpdate
 import com.example.appcalorias.db.model.res.Gender
 import java.io.Serializable
 
+/**
+ * Clase que representa un usuario en la base de datos.
+ * Cada usuario tiene un identificador único, fecha de actualización, edad, peso, género y altura.
+ * Además, se calcula el BMR (Tasa Metabólica Basal) del usuario en función de estos datos.
+ * @param id el identificador único del usuario, autogenerado por la base de datos. (No se debe modificar manualmente)
+ * @param dateUpdate la fecha de la última actualización del usuario, por defecto es la fecha actual. (Recomendable no modificar)
+ * @param age la edad del usuario, debe ser un valor positivo.
+ * @param weight el peso del usuario, debe ser un valor positivo.
+ * @param gender genero del usuario
+ * @param height la altura del usuario, debe ser un valor positivo.
+ * @property bmr la Tasa Metabólica Basal del usuario, calculada a partir de la edad, género, altura y peso.
+ * @property PREFS_USER_ID clave para almacenar el ID del usuario en las preferencias compartidas.
+ * (Utilizado para pasar el usuario principal por un intent)
+ * @author Adrian Salazar Escoriza
+ */
 @Entity
 class User(
     @PrimaryKey(autoGenerate = true)
@@ -19,23 +32,10 @@ class User(
     val height: Int,
 ) : Serializable {
 
-    /**
-     * Basal Metabolic Rate (BMR) del usuario.
-     * Este no esta contando las calorias que quema el usuario al realizar actividades.
-     */
     var bmr: Int = calculateBMR(age, gender, height, weight)
 
 
     companion object {
-        /**
-         * Metodo que se encarga de devolver el utlimo usuario de la base de datos (la ultima modificacion de este).
-         * @param context el contexto de la aplicacion.
-         * @return el ultimo usuario de la base de datos o null si no hay usuarios.
-         */
-        suspend fun getLastUser(context: Context): User? {
-            return DatabaseProvider.getDatabase(context).getUserDAO().getLastUser()
-        }
-
         const val PREFS_USER_ID = "PREFS_USER"
     }
 

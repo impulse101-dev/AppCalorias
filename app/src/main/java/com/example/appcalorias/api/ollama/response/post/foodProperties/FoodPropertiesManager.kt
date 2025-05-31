@@ -10,14 +10,22 @@ import com.google.gson.JsonParser
  * sacar los datos de forma estructurada.
  *
  * Dado a que las respuestas de la api son tan poco fiables, era necesario crear esta clase para poder
- * obtener respuestas de forma mas fiable realizando calculos en casos en los que falte alguna de las
+ * obtener respuestas de forma mas estable, realizando calculos en casos en los que falte alguna de las
  * propiedades.
  *
+ * @param postResponse la respuesta de la api, que contiene el json con las propiedades de la comida.
+ * @property response la respuesta de la api en formato String, que contiene las propiedades de la comida. (Sale del PostResponse)
  * @author Adrian Salazar Escoriza
  */
 class FoodPropertiesManager(postResponse : PostResponse) {
     val response : String = postResponse.response
 
+    /**
+     * Este metodo se encarga de obtener las propiedades de la comida a partir de la respuesta de la api
+     * mediante el uso de la libreria com.google.Gson para parsear el json que devuelve la api.
+     * @return Devuelve un objeto de tipo FoodProperties que contiene las propiedades de la comida ya
+     * parseadas y filtradas.
+     */
     fun getFoodProperties() : FoodProperties {
         val jsonElement = JsonParser.parseString(response)
         val jsonObject = jsonElement.asJsonObject

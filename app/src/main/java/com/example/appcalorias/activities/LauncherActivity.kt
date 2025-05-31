@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Actividad que se inicia al abrir la aplicacion.
@@ -65,7 +66,9 @@ class LauncherActivity : AppCompatActivity() {
         scope.launch {
             delay(1000)  //para que se vea el loadingDialog
 
-            user = User.getLastUser(applicationContext)
+            withContext(Dispatchers.Main) {
+                user = room.getUserDAO().getLastUser()
+            }
 
 
             if (user == null) {

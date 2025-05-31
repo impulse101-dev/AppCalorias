@@ -5,6 +5,16 @@ import java.math.BigInteger
 
 /**
  * Data class que representa la respuesta de la API al hacer una peticion de tipo POST.
+ * @property model el modelo utilizado para la generacion de la respuesta.
+ * @property createdAt la fecha y hora en la que se creo la respuesta.
+ * @property response el texto de la respuesta generada por el modelo.
+ * @property done indica si la generacion de la respuesta ha finalizado.
+ * @property context una coleccion de enteros que representa el contexto utilizado en la generacion de la respuesta.
+ * @property totalDuration la duracion total de la generacion de la respuesta en nanosegundos.
+ * @property loadDuration la duracion de la carga del modelo en nanosegundos.
+ * @property prc el numero de evaluaciones del prompt realizadas.
+ * @property eCount el numero de evaluaciones realizadas.
+ * @property eDuration la duracion de las evaluaciones realizadas en nanosegundos.
  * @author Adrian Salazar Escoriza
  */
 data class PostResponse (
