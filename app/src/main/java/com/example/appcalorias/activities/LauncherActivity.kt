@@ -2,13 +2,13 @@ package com.example.appcalorias.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appcalorias.databinding.ActivityAddEditProfileBinding
+import com.example.appcalorias.databinding.ActivitySplashBinding
 import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
 import com.example.appcalorias.db.model.res.Gender
@@ -16,6 +16,7 @@ import com.example.appcalorias.db.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -26,22 +27,21 @@ import kotlinx.coroutines.launch
 class LauncherActivity : AppCompatActivity() {
 
     private lateinit var b : ActivityAddEditProfileBinding
+    private lateinit var splashBinding : ActivitySplashBinding
     private val scope = CoroutineScope(Dispatchers.Main)
     private lateinit var room : AppCaloriesDB
 
     private var user : User? = null
 
-    //private val prefsManager : PreferencesManager = PreferencesManager.getInstance(this)
-
-    private val ivInsertUser : ImageView by lazy { b.ivUpdateProfile }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        splashBinding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(splashBinding.root)
         b = ActivityAddEditProfileBinding.inflate(layoutInflater)
 
-        setContentView(b.root)
+        //setContentView(b.root)
         ViewCompat.setOnApplyWindowInsetsListener(b.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -55,10 +55,14 @@ class LauncherActivity : AppCompatActivity() {
         room = DatabaseProvider.getDatabase(this)
 
         scope.launch {
+            delay(1000)  //para que se vea el loadingDialog
+
             user = User.getLastUser(applicationContext)
-            println("user in launcher: $user")
+
+
             if (user == null) {
-                ivInsertUser.setOnClickListener {
+                setContentView(b.root)
+                b.btnUpdateProfile.setOnClickListener {
                     addProfile()
                 }
             } else {
@@ -69,7 +73,7 @@ class LauncherActivity : AppCompatActivity() {
     }
 
     /**
-     * Actividad que se encarga de pasar a la actividad principal.
+     * Actividad que se encarga de pasar un usuario a la actividad principal.
      * Se pide el usuario para que no se pueda pasar un valor nulo en el id de este.
      * @param user Usuario no nulo a pasar a la siguiente actividad.
      */
@@ -108,7 +112,7 @@ class LauncherActivity : AppCompatActivity() {
             val userDao = room.getUserDAO()
 
             userDao.insertUser(user)
-            changeActivity(user)
+            changeActivity(userDao.getLastUser()!!)
         }
     }
 

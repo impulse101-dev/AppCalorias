@@ -17,9 +17,7 @@ class User(
     val weight: Int,   //el peso puede variar (es literalmente el objetivo del proyecto...)
     val gender: Gender,
     val height: Int,
-)
-    : Serializable
-{
+) : Serializable {
 
     /**
      * Basal Metabolic Rate (BMR) del usuario.
@@ -37,6 +35,7 @@ class User(
         suspend fun getLastUser(context: Context): User? {
             return DatabaseProvider.getDatabase(context).getUserDAO().getLastUser()
         }
+
         const val PREFS_USER_ID = "PREFS_USER"
     }
 
@@ -57,6 +56,20 @@ class User(
 
     override fun toString(): String {
         return "User(id=$id, dateUpdate='$dateUpdate', age=$age, weight=$weight, gender=$gender, height=$height, bmr=$bmr)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || other !is User) return false
+
+        return id == other.id &&
+                dateUpdate == other.dateUpdate &&
+                age == other.age &&
+                weight == other.weight &&
+                gender == other.gender &&
+                height == other.height &&
+                bmr == other.bmr
+
     }
 
 }

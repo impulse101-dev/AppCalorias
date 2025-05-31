@@ -5,4 +5,5 @@
 
     <color name="colorPrimary">#E4CBBEBE</color>
     <color name="lightBlack">#DF474343</color>
+    <color name="deletion_red">#33FF0000</color>
 </resources>

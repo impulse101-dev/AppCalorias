@@ -18,6 +18,9 @@ interface UserDAO {
     @Query("SELECT * FROM User ORDER BY id DESC LIMIT 1")
     suspend fun getLastUser() : User?
 
+    @Query("SELECT * FROM User WHERE id != :mainUserId ORDER BY id DESC")
+    suspend fun getAllOtherUsers(mainUserId : Int) : List<User>
+
 //    @Transaction
 //    @Query("SELECT * FROM User WHERE id = :userId")
 //    suspend fun getUserWithRecords(userId: Int) : UserWithRecords

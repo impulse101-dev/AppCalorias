@@ -10,7 +10,8 @@ import com.example.appcalorias.db.model.res.DateUpdate
         ForeignKey(
             entity = User::class,
             parentColumns = ["id"],
-            childColumns = ["idUser"]
+            childColumns = ["idUser"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
@@ -19,8 +20,8 @@ data class Record(
     val id : Int = 0,
     val date: String = DateUpdate.currentDate,
     val calories : Float,        //REAL
-    val carbohydrates : Int,
-    val proteins : Int,
-    val fats : Int,
+    val carbohydrates : Float,
+    val proteins : Float,
+    val fats : Float,
     val idUser : Int
 )

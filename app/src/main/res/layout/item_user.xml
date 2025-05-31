@@ -2,40 +2,35 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/CustomBottomDialog"
+    android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
-    app:cardUseCompatPadding="true">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/generalDiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tvDialogTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Información nutricional"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvRecordDate"
+            android:id="@+id/tvUserId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Usuario #42" />
+
+        <TextView
+            android:id="@+id/tvUserDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDialogTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="23/11/2023" />
 
         <View
@@ -44,172 +39,184 @@
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toBottomOf="@id/tvRecordDate" />
-
-        <ImageButton
-            android:id="@+id/btnDeleteRecord"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Eliminar usuario"
-            android:src="@android:drawable/ic_menu_delete"
-            android:tint="#D32F2F"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvUserId" />
 
         <LinearLayout
-            android:id="@+id/linearLayoutHorizontalFoodProperties"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="vertical"
-            android:paddingTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider">
 
-            <!-- Calorías -->
+            <!-- Género -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/btn_star"
-                    android:tint="#FF9800"
-                    android:contentDescription="Calorías" />
+                    android:contentDescription="Género"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    app:tint="#673AB7" />
 
                 <TextView
-                    android:id="@+id/tvCalories"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="end"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:gravity="end"
-                    android:text="@string/calories"
+                    android:text="Género"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCaloriesValue"
+                    android:id="@+id/tvGender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#673AB7"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#FF9800"
-                    tools:text="1500 kcal" />
+                    tools:text="Masculino" />
             </LinearLayout>
 
-            <!-- Carbohidratos -->
+            <!-- Edad -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_view"
-                    android:tint="#4CAF50"
-                    android:contentDescription="Carbohidratos" />
+                    android:contentDescription="Edad"
+                    android:src="@android:drawable/ic_menu_recent_history"
+                    app:tint="#2196F3" />
 
                 <TextView
-                    android:id="@+id/tvCarbohydrates"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="end"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:gravity="end"
-                    android:text="@string/carbohydrates"
+                    android:text="Edad"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvCarbohydratesValue"
+                    android:id="@+id/tvAge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="#4CAF50"
-                    tools:text="20 g" />
-            </LinearLayout>
-
-            <!-- Proteínas -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_compass"
-                    android:tint="#2196F3"
-                    android:contentDescription="Proteínas" />
-
-                <TextView
-                    android:id="@+id/tvProteins"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:gravity="end"
-                    android:text="@string/proteins"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvProteinsValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:textColor="#2196F3"
-                    tools:text="12 g" />
+                    android:textSize="16sp"
+                    tools:text="30 años" />
             </LinearLayout>
 
-            <!-- Grasas -->
+            <!-- Peso -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:tint="#FF5722"
-                    android:contentDescription="Grasas" />
+                    android:contentDescription="Peso"
+                    android:src="@android:drawable/btn_star"
+                    app:tint="#FF9800" />
 
                 <TextView
-                    android:id="@+id/tvFats"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="end"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:gravity="end"
-                    android:text="@string/fats"
+                    android:text="Peso"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvFatsValue"
+                    android:id="@+id/tvWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#FF9800"
                     android:textSize="16sp"
+                    tools:text="75 kg" />
+            </LinearLayout>
+
+            <!-- Altura -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Altura"
+                    android:src="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="#4CAF50" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="Altura"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#4CAF50"
+                    android:textSize="16sp"
+                    tools:text="180 cm" />
+            </LinearLayout>
+
+            <!-- BMR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="BMR"
+                    android:src="@android:drawable/ic_menu_share"
+                    app:tint="#FF5722" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="BMR"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvBmr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textColor="#FF5722"
-                    tools:text="10 g" />
+                    android:textSize="16sp"
+                    tools:text="1800 kcal" />
             </LinearLayout>
         </LinearLayout>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

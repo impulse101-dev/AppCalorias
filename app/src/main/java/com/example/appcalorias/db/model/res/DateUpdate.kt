@@ -12,7 +12,7 @@ object DateUpdate {
      * Devuelve la fecha y hora actual formateada.
      * @return la fecha y hora actual en formato "yyyy-MM-dd HH:mm:ss".
      */
-    val currentDate = LocalDateTime.now().format(
+    val currentDate : String get() = LocalDateTime.now().format(
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     ).toString()
 }

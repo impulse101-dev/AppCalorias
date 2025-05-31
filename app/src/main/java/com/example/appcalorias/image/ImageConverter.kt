@@ -24,10 +24,6 @@ object ImageConverter {
     fun convertImageToBase64(drawable: Drawable): String {
         val bitmap = (drawable as BitmapDrawable).bitmap
 
-        Log.d(
-            "drawableBefore",
-            "width: ${bitmap.width} height: ${bitmap.height}"
-        )
 // Escalar la imagen si excede la resolución máxima permitida
         val maxResolution = ConfigLoader.getImageMaxResolution()
         val scaledBitmap = if (bitmap.width > maxResolution || bitmap.height > maxResolution) {
@@ -42,11 +38,6 @@ object ImageConverter {
         } else {
             bitmap
         }
-
-        Log.d(
-            "drawableAfter",
-            "width: ${scaledBitmap.width} height: ${scaledBitmap.height}"
-        )
 
         val outputStream = ByteArrayOutputStream()
 // Comprimir la imagen en formato PNG

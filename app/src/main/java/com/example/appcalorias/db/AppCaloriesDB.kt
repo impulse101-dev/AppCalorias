@@ -10,7 +10,7 @@ import com.example.appcalorias.db.model.Record
 
 @Database(
     entities = [User::class, Record::class],
-    version = 11
+    version = 12
 )
 abstract class AppCaloriesDB : RoomDatabase() {
     abstract fun getUserDAO() : UserDAO

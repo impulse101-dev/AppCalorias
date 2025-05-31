@@ -5,77 +5,90 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.MainActivity">
-
-
-    <ImageView
-        android:id="@+id/ivPhoto"
-        android:layout_width="300sp"
-        android:layout_height="300sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22"
-        tools:background="@color/black" />
-
-    <ImageView
-        android:id="@+id/ivSendPetition"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:background="@drawable/ic_play_foreground"
-        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"
-        app:layout_constraintStart_toStartOf="@+id/ivPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />
-
-
-    <Button
-        android:id="@+id/btGalery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bt_galery"
-        android:layout_marginTop="45sp"
-        android:layout_marginEnd="15sp"
-        android:layout_marginStart="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivSendPetition"
-        app:layout_constraintStart_toStartOf="@+id/ivSendPetition"
-        app:layout_constraintTop_toBottomOf="@+id/ivSendPetition"
-        tools:background="@color/lightBlack" />
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <EditText-->
-<!--        android:id="@+id/eTuserPrompt"-->
-<!--        android:layout_width="300sp"-->
-<!--        android:layout_height="150sp"-->
-<!--        android:hint="@string/et_Hint"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/ivPhoto"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/ivPhoto"-->
-<!--        android:scrollHorizontally="false"-->
-<!--        android:gravity="top|start"-->
-<!--        android:inputType="textMultiLine"-->
-<!--        android:autofillHints=""-->
-<!--        />-->
+    <TextView
+        android:id="@+id/tvInstruccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Selecciona o toma una foto de comida"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btProbarModelo"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="96dp"-->
-    <!--        android:text="Prueba"-->
-    <!--        app:layout_constraintEnd_toEndOf="@+id/ivPhoto"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/ivPhoto"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/ivPhoto" />-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstruccion">
 
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagen de comida" />
+    </androidx.cardview.widget.CardView>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btGalery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/bt_galery"
+        android:textAllCaps="false"
+        android:padding="12dp"
+        app:cornerRadius="8dp"
+        app:icon="@android:drawable/ic_menu_gallery"
+        app:iconGravity="textStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ivSendPetition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="Enviar petición"
+        android:src="@drawable/ic_play_foreground"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btGalery" />
+
+    <TextView
+        android:id="@+id/tvAnalizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Analizar imagen"
+        app:layout_constraintEnd_toEndOf="@+id/ivSendPetition"
+        app:layout_constraintStart_toStartOf="@+id/ivSendPetition"
+        app:layout_constraintTop_toBottomOf="@+id/ivSendPetition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
