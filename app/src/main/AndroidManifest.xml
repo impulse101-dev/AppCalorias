@@ -35,9 +35,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.dialogs.UserOptionsDialog"
-            android:exported="false" />
-        <activity
             android:name=".activities.RecordListActivity"
             android:exported="false" />
         <activity
