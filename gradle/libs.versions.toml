@@ -17,6 +17,7 @@ loggingInterceptor = "5.0.0-alpha.14"
 androidxRoomGradlePlugin = "2.7.1"
 roomCommon = "2.7.1"
 picasso = "2.71828"
+materialVersion = "1.14.0-alpha01"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-intercep
 androidx-androidx-room-gradle-plugin = { group = "androidx.room", name = "androidx.room.gradle.plugin", version.ref = "androidxRoomGradlePlugin" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

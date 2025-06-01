@@ -38,6 +38,7 @@ class FoodPropertiesDialog(
         val dialog = Dialog(requireContext())
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         setActionListeners()
     }
 

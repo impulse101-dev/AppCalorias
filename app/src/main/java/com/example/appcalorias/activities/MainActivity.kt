@@ -169,13 +169,13 @@ class MainActivity : AppCompatActivity() {
                         )
 
                         runOnUiThread {
-                            loadingDialog.dismiss()
-
                             if (call.isSuccessful) {
 
                                 val foodProperties = FoodPropertiesManager(
                                     call.body()!!
                                 ).getFoodProperties()
+
+                                loadingDialog.dismiss()
 
                                 FoodPropertiesDialog(
                                     foodProperties,
@@ -206,6 +206,7 @@ class MainActivity : AppCompatActivity() {
 
                             } else {
                                 println("Error en la llamada a la API\nCodigo de error: ${call.code()}")
+                                loadingDialog.dismiss()
                                 runningModel = false
                             }
                         }

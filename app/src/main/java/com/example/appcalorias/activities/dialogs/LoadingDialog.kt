@@ -1,8 +1,6 @@
 package com.example.appcalorias.activities.dialogs
 
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
 import androidx.fragment.app.DialogFragment
@@ -21,7 +19,7 @@ class LoadingDialog : DialogFragment() {
 
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCancelable(false)
         dialog.setCanceledOnTouchOutside(false)
         dialog.setContentView(b.root)

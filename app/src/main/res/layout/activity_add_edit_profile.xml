@@ -76,8 +76,8 @@
                         android:id="@+id/etAge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="3" />
+                        android:inputType="none"
+                        android:focusable="false" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 

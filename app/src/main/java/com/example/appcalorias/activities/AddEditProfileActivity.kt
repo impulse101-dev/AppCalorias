@@ -1,6 +1,8 @@
 package com.example.appcalorias.activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -19,6 +21,7 @@ import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
 import com.example.appcalorias.db.model.res.Gender
 import com.example.appcalorias.db.model.User
+import com.example.appcalorias.db.model.res.DateUpdate
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -96,6 +99,20 @@ class AddEditProfileActivity : AppCompatActivity() {
                 addProfile()
             }
         }
+
+        b.etAge.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                b.etAge.setText(formattedDate)
+            }, year, month, day)
+
+            datePickerDialog.show()
+        }
     }
 
     /**
@@ -131,7 +148,7 @@ class AddEditProfileActivity : AppCompatActivity() {
             }
         }
 
-        val age = b.etAge.text.toString().toInt()
+        val age = DateUpdate.getCurrentAge(b.etAge.text.toString())
         val height = b.etHeight.text.toString().toInt()
         val weight = b.etWeight.text.toString().toInt()
         val gender =
@@ -159,10 +176,6 @@ class AddEditProfileActivity : AppCompatActivity() {
      */
     fun validateFields(): Boolean {
         return (
-                //etName.text.toString().isNotBlank() &&
-                b.etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
-                        b.etAge.text.toString().toInt() > 0 &&
-                        b.etAge.text.toString().toInt() < 140 &&
                         (b.chipMale.isChecked || b.chipFemale.isChecked) &&
                         b.etHeight.text.toString().isNotBlank() &&
                         b.etHeight.text.toString().toInt() > 0 &&

@@ -1,6 +1,8 @@
 package com.example.appcalorias.activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +15,7 @@ import com.example.appcalorias.db.AppCaloriesDB
 import com.example.appcalorias.db.DatabaseProvider
 import com.example.appcalorias.db.model.res.Gender
 import com.example.appcalorias.db.model.User
+import com.example.appcalorias.db.model.res.DateUpdate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -62,6 +65,7 @@ class LauncherActivity : AppCompatActivity() {
      */
     private fun initProperties () {
         room = DatabaseProvider.getDatabase(this)
+        initActionListeners()
 
         scope.launch {
             delay(1000)  //para que se vea el loadingDialog
@@ -80,6 +84,24 @@ class LauncherActivity : AppCompatActivity() {
                 changeActivity(user!!)   //user no sera nulo al pasar el if()
             }
 
+        }
+    }
+
+    private fun initActionListeners () {
+        b.etAge.setOnClickListener {
+            b.etAge.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                    val formattedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                    b.etAge.setText(formattedDate)
+                }, year, month, day)
+
+                datePickerDialog.show()
+            }
         }
     }
 
@@ -107,7 +129,7 @@ class LauncherActivity : AppCompatActivity() {
             return
         }
 
-        val age = b.etAge.text.toString().toInt()
+        val age = DateUpdate.getCurrentAge(b.etAge.text.toString())
         val height = b.etHeight.text.toString().toInt()
         val weight = b.etWeight.text.toString().toInt()
         val gender = if (b.chipMale.isChecked) Gender.MALE else Gender.FEMALE   //uno de los 2 chips ha de ser seleccionado para llegar aqui
@@ -134,9 +156,6 @@ class LauncherActivity : AppCompatActivity() {
      */
     private fun validateFields() : Boolean {    //todo estas repitiendo codigo aqui
         return (
-                b.etAge.text.toString().isNotBlank() &&   //ya no salta el NumberFormatException
-                        b.etAge.text.toString().toInt() > 0 &&
-                        b.etAge.text.toString().toInt() < 140 &&
                         (b.chipMale.isChecked || b.chipFemale.isChecked) &&
                         b.etHeight.text.toString().isNotBlank() &&
                         b.etHeight.text.toString().toInt() > 0 &&
