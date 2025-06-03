@@ -208,12 +208,15 @@ class MainActivity : AppCompatActivity() {
                                 println("Error en la llamada a la API\nCodigo de error: ${call.code()}")
                                 loadingDialog.dismiss()
                                 runningModel = false
+                                Toast.makeText(this@MainActivity, "No se ha podido establecer la conexion", Toast.LENGTH_SHORT).show()
                             }
                         }
 
                     } catch (e : Exception) {
                         runOnUiThread {
                             loadingDialog.dismiss()
+                            runningModel = false
+                            Toast.makeText(this@MainActivity, "No se ha podido establecer la conexion", Toast.LENGTH_SHORT).show()
                         }
                     }
 

@@ -22,7 +22,7 @@ object RetrofitClient {
     private val BASE_URL = "http://" + ConfigLoader.getIp() + ":" + ConfigLoader.getPort() + "/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY   //esto muestra el cuerpo de la peticion
+        level = HttpLoggingInterceptor.Level.BODY   //seguimiento de la peticion (debugging)
     }
 
     private val okHttpClient = OkHttpClient.Builder()

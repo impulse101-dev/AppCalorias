@@ -14,7 +14,7 @@ import com.example.appcalorias.db.model.Record
  */
 @Database(
     entities = [User::class, Record::class],
-    version = 12
+    version = 11
 )
 abstract class AppCaloriesDB : RoomDatabase() {
     /**

@@ -2,7 +2,6 @@ package com.example.appcalorias.api.ollama
 
 import com.example.appcalorias.api.ollama.prompt.PromptRequest
 import com.example.appcalorias.api.ollama.response.post.PostResponse
-import com.example.appcalorias.api.ollama.config.ConfigLoader
 import retrofit2.Response
 
 /**
