@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.appcalorias.api.ollama.response.post.PostResponse
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import java.util.Locale
 
 /**
  * Esta es la clase que se encarga de manejar los datos de la respuesta de la api y poder
@@ -76,10 +77,10 @@ class FoodPropertiesManager(postResponse : PostResponse) {
             totalCalories = ((foodProperties.carbohydrates.toFloat() * 4) + (foodProperties.protein.toFloat() * 4) + (foodProperties.fat.toFloat() * 9))
             Log.d("caloriesRawValue", "calories: $totalCalories")
             return FoodProperties(
-                calories = String.format("%.1f", totalCalories),
-                carbohydrates = foodProperties.carbohydrates,
-                protein = foodProperties.protein,
-                fat = foodProperties.fat
+                calories = String.format(Locale.US,"%.1f", totalCalories),
+                carbohydrates = String.format(Locale.US,"%.1f", foodProperties.carbohydrates.toFloat()),
+                protein = String.format(Locale.US,"%.1f", foodProperties.protein.toFloat()),
+                fat = String.format(Locale.US,"%.1f", foodProperties.fat.toFloat())
             )
         }
         return foodProperties
