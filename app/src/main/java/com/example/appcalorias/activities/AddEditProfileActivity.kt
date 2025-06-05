@@ -191,9 +191,9 @@ class AddEditProfileActivity : AppCompatActivity() {
      * @param user Usuario del que se quieren establecer los valores.
      */
     private fun setActualUserProperties(user: User) {
-        b.etAge.hint = user.age.toString()
-        b.etWeight.hint = user.weight.toString()
-        b.etHeight.hint = user.height.toString()
+        b.etAge.setText(DateUpdate.getBirthDay(user.age))
+        b.etWeight.setText(user.weight.toString())
+        b.etHeight.setText(user.height.toString())
         if (user.gender == Gender.MALE) b.chipMale.isChecked = true else {
             b.chipFemale.isChecked = true
         }

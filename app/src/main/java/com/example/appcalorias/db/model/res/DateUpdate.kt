@@ -18,6 +18,7 @@ object DateUpdate {
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     ).toString()
 
+    private const val FORMATPATTERN = "yyyy-MM-dd"
 
     /**
      * Calcula la edad actual del usuario a partir de su fecha de nacimiento.
@@ -25,9 +26,20 @@ object DateUpdate {
      * @return la edad actual desde la fecha pasada por parametro.
      */
     fun getCurrentAge (birthDateTime: String) : Int {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formatter = DateTimeFormatter.ofPattern(FORMATPATTERN)
         val birthDate = LocalDate.parse(birthDateTime, formatter)
 
         return Period.between(birthDate, LocalDate.now()).years
+    }
+
+
+    /**
+     * Calcula una fecha de nacimiento estimada a partir de una edad
+     * @param age Edad
+     * @return Fecha con el formato predeterminado de la aplicacion
+     */
+    fun getBirthDay (age : Int) : String {
+        val date = LocalDate.now().minusYears(age.toLong())
+        return date.format(DateTimeFormatter.ofPattern(FORMATPATTERN))
     }
 }

@@ -154,9 +154,8 @@ class LauncherActivity : AppCompatActivity() {
      * Este metodo se encarga de validar los campos del perfil.
      * @return true si los campos son correctos, false si no lo son (faltan valores).
      */
-    private fun validateFields() : Boolean {    //todo estas repitiendo codigo aqui
+    private fun validateFields() : Boolean {
         return (
-                        (b.chipMale.isChecked || b.chipFemale.isChecked) &&
                         b.etHeight.text.toString().isNotBlank() &&
                         b.etHeight.text.toString().toInt() > 0 &&
                         b.etHeight.text.toString().toInt() < 300 &&
